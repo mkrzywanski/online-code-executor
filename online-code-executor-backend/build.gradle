@@ -33,7 +33,7 @@ dependencies {
 
 
 application {
-    mainClass.set("io.mkrzywanski.onlinecompiler.Application")
+    mainClass.set("io.mkrzywanski.onlinecodeexecutor.Application")
 }
 
 java {
