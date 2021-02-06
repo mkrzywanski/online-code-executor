@@ -21,7 +21,7 @@ class CodeExecutionControllerSpec extends Specification {
     RxHttpClient client
 
     //TODO get to know why exchange returns null body
-    def 'should compile code'() {
+    def 'should compile and execute Java code'() {
         given:
         def codeString = "public class Test { public static void main(String[] args) {System.out.println(\"hello\");}}"
         def code = new Code(Language.JAVA, codeString)
@@ -39,5 +39,20 @@ class CodeExecutionControllerSpec extends Specification {
 //        with(result.body()) {
 //            output == 'Hello\r\n'
 //        }
+    }
+
+    def 'should compile and execute Groovy code'() {
+        given:
+        def codeString = "class Test {static void main(String[] args) {println \"Hello Groovy\"}}"
+        def code = new Code(Language.GROOVY, codeString)
+
+        when:
+        ExecutionResult result = client.toBlocking()
+                .retrieve(HttpRequest.create(HttpMethod.POST, Endpoints.EXECUTE).body(code), ExecutionResult.class)
+
+        then:
+        !result.output.isEmpty()
+        result.output == 'Hello Groovy' + System.lineSeparator()
+
     }
 }

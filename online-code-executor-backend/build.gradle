@@ -28,6 +28,10 @@ dependencies {
     implementation("javax.annotation:javax.annotation-api")
     implementation("io.micronaut:micronaut-http-client")
     implementation 'com.github.javaparser:javaparser-symbol-solver-core:3.18.0'
+
+    // https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all
+    compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '3.0.7', ext: 'pom'
+
     runtimeOnly("ch.qos.logback:logback-classic")
 }
 

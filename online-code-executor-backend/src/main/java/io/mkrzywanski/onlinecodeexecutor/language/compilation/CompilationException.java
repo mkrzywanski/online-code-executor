@@ -13,6 +13,11 @@ public class CompilationException extends Exception {
         this.report = report;
     }
 
+    public CompilationException(Exception e) {
+        super(e);
+        this.report = "";
+    }
+
     public String getReport() {
         return report;
     }

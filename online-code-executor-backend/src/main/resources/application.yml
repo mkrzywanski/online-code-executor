@@ -1,3 +1,7 @@
 micronaut:
   application:
     name: onlineCompiler
+
+groovy:
+  compiler:
+    directory: groovy
