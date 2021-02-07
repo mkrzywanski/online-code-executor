@@ -27,10 +27,22 @@ public class ApplicationBeanFactory {
 
     @Singleton
     @Bean
-    public LanguageToolsResolver languageToolsResolver() {
+    public GroovyLanguageTools groovyLanguageTools(final ThreadAwarePrintStream threadAwarePrintStream) {
+        return new GroovyLanguageTools(new GroovyExecutor(threadAwarePrintStream), new GroovyCompiler(Paths.get(groovyBaseDir)));
+    }
+
+    @Bean
+    @Singleton
+    public JavaLanguageTools javaLanguageTools(final ThreadAwarePrintStream threadAwarePrintStream) {
+        return new JavaLanguageTools(new JavaCompiler(), new JavaExecutor(threadAwarePrintStream));
+    }
+
+    @Singleton
+    @Bean
+    public LanguageToolsResolver languageToolsResolver(final GroovyLanguageTools groovyLanguageTools, final JavaLanguageTools javaLanguageTools) {
         Map<Language, LanguageTools> languageToolsMap = new EnumMap<>(Language.class);
-        languageToolsMap.put(Language.JAVA, new JavaLanguageTools(new JavaCompiler(), new JavaExecutor(threadAwarePrintStream())));
-        languageToolsMap.put(Language.GROOVY, new GroovyLanguageTools(new GroovyExecutor(threadAwarePrintStream()), new GroovyCompiler(Paths.get(groovyBaseDir))));
+        languageToolsMap.put(Language.JAVA, javaLanguageTools);
+        languageToolsMap.put(Language.GROOVY, groovyLanguageTools);
         return new LanguageToolsResolver(languageToolsMap);
     }
 
