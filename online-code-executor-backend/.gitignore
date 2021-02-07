@@ -13,5 +13,5 @@ out/
 .classpath
 .factorypath
 
-kotlin
-groovy
+./kotlin
+./groovy
