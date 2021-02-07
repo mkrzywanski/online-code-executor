@@ -15,6 +15,8 @@ import io.mkrzywanski.onlinecodeexecutor.language.java.compiler.JavaCompiler;
 import io.mkrzywanski.onlinecodeexecutor.language.java.JavaExecutor;
 import io.mkrzywanski.onlinecodeexecutor.language.java.JavaLanguageTools;
 import io.mkrzywanski.onlinecodeexecutor.language.Language;
+import io.mkrzywanski.onlinecodeexecutor.language.kotlin.KotlinCompiler;
+import io.mkrzywanski.onlinecodeexecutor.language.kotlin.KotlinLanguageTools;
 
 import javax.inject.Singleton;
 import java.io.PrintStream;
@@ -29,6 +31,15 @@ public class ApplicationBeanFactory {
 
     @Value("${groovy.compiler.directory}")
     private String groovyBaseDir;
+
+    @Value("${kotlin.compiler.directory}")
+    private String kotlinBaseDir;
+
+    @Singleton
+    @Bean
+    public KotlinLanguageTools kotlinLanguageTools(final ThreadAwarePrintStream threadAwarePrintStream) {
+        return new KotlinLanguageTools(new KotlinCompiler(Paths.get(kotlinBaseDir)), new JavaExecutor(threadAwarePrintStream));
+    }
 
     @Singleton
     @Bean
@@ -56,10 +67,13 @@ public class ApplicationBeanFactory {
 
     @Singleton
     @Bean
-    public LanguageToolsResolver languageToolsResolver(final GroovyLanguageTools groovyLanguageTools, final JavaLanguageTools javaLanguageTools) {
+    public LanguageToolsResolver languageToolsResolver(final GroovyLanguageTools groovyLanguageTools,
+                                                       final JavaLanguageTools javaLanguageTools,
+                                                       final KotlinLanguageTools kotlinLanguageTools) {
         Map<Language, LanguageTools> languageToolsMap = new EnumMap<>(Language.class);
         languageToolsMap.put(Language.JAVA, javaLanguageTools);
         languageToolsMap.put(Language.GROOVY, groovyLanguageTools);
+        languageToolsMap.put(Language.KOTLIN, kotlinLanguageTools);
         return new LanguageToolsResolver(languageToolsMap);
     }
 

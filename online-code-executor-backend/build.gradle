@@ -33,6 +33,14 @@ dependencies {
     implementation group: 'org.codehaus.groovy', name: 'groovy-all', version: '3.0.7', ext: 'pom'
     implementation group: 'net.bytebuddy', name: 'byte-buddy', version: '1.10.20'
 
+    implementation group: 'org.codehaus.groovy', name: 'groovy-all', version: '3.0.7', ext: 'pom'
+    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-compiler-embeddable', version: '1.4.30'
+    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: '1.4.30'
+    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-script-runtime', version: '1.4.30'
+    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-reflect', version: '1.4.30'
+
+
+
     runtimeOnly("ch.qos.logback:logback-classic")
 }
 
