@@ -1,6 +1,7 @@
 package io.mkrzywanski.onlinecodeexecutor.language.groovy;
 
-import io.mkrzywanski.onlinecodeexecutor.language.ThreadAwarePrintStream;
+import io.mkrzywanski.onlinecodeexecutor.language.interceptor.ThreadOutputInterceptor;
+import io.mkrzywanski.onlinecodeexecutor.language.interceptor.ThreadOutputPrintStreamInterceptor;
 import io.mkrzywanski.onlinecodeexecutor.language.execution.ExecutionException;
 import io.mkrzywanski.onlinecodeexecutor.language.execution.Executor;
 
@@ -17,10 +18,10 @@ public class GroovyExecutor implements Executor {
     private static final String MAIN = "main";
     private static final String EXECUTION_FAILED = "Execution failed";
 
-    private final ThreadAwarePrintStream threadAwarePrintStream;
+    private final ThreadOutputInterceptor threadAwarePrintStream;
 
     @Inject
-    public GroovyExecutor(final ThreadAwarePrintStream threadAwarePrintStream) {
+    public GroovyExecutor(final ThreadOutputInterceptor threadAwarePrintStream) {
         this.threadAwarePrintStream = threadAwarePrintStream;
     }
 
