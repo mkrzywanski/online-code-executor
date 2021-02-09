@@ -5,7 +5,6 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.Optional;
 
 public class ThreadOutputPrintStreamInterceptor implements InvocationHandler, ThreadOutputInterceptor {
@@ -35,10 +34,6 @@ public class ThreadOutputPrintStreamInterceptor implements InvocationHandler, Th
         PrintStreamData printStreamData = printStreamDataTL.get();
         PrintStream printStream = printStreamData.printStream;
 
-        Class<? extends PrintStream> aClass = printStream.getClass();
-
-//        var parametersClasses = Arrays.stream(objects).map(Object::getClass).toArray(Class[]::new);
-//        Method method1 = aClass.getMethod(targetMethod.getName(), parametersClasses);
         targetMethod.invoke(printStream, objects);
 
         return targetMethod.invoke(target, objects);
