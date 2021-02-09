@@ -34,7 +34,7 @@ class CodeExecutionControllerSpec extends Specification {
         then:
         result.code() == 200
         with(result.body()) {
-            output == 'hello\r\n'
+            output == 'hello' + System.lineSeparator()
         }
     }
 
