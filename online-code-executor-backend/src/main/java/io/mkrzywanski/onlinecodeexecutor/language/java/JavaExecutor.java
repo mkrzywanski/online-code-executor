@@ -1,7 +1,6 @@
 package io.mkrzywanski.onlinecodeexecutor.language.java;
 
 import io.mkrzywanski.onlinecodeexecutor.language.interceptor.ThreadOutputInterceptor;
-import io.mkrzywanski.onlinecodeexecutor.language.interceptor.ThreadOutputPrintStreamInterceptor;
 import io.mkrzywanski.onlinecodeexecutor.language.execution.ExecutionException;
 import io.mkrzywanski.onlinecodeexecutor.language.execution.Executor;
 

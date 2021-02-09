@@ -10,12 +10,12 @@ import java.util.Optional;
 
 public class ThreadOutputPrintStreamInterceptor implements InvocationHandler, ThreadOutputInterceptor {
 
-    private final PrintStream proxied;
+    private final PrintStream target;
 
     private final ThreadLocal<PrintStreamData> printStreamDataTL = ThreadLocal.withInitial(PrintStreamData::newInstance);
 
-    public ThreadOutputPrintStreamInterceptor(PrintStream proxied) {
-        this.proxied = proxied;
+    public ThreadOutputPrintStreamInterceptor(PrintStream target) {
+        this.target = target;
     }
 
     @Override
@@ -31,15 +31,17 @@ public class ThreadOutputPrintStreamInterceptor implements InvocationHandler, Th
     }
 
     @Override
-    public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
+    public Object invoke(Object o, Method targetMethod, Object[] objects) throws Throwable {
         PrintStreamData printStreamData = printStreamDataTL.get();
         PrintStream printStream = printStreamData.printStream;
 
         Class<? extends PrintStream> aClass = printStream.getClass();
 
-        Method method1 = aClass.getMethod(method.getName(), Arrays.stream(objects).map(Object::getClass).toArray(Class[]::new));
-        method1.invoke(printStream, objects);
-        return method1.invoke(proxied, objects);
+//        var parametersClasses = Arrays.stream(objects).map(Object::getClass).toArray(Class[]::new);
+//        Method method1 = aClass.getMethod(targetMethod.getName(), parametersClasses);
+        targetMethod.invoke(printStream, objects);
+
+        return targetMethod.invoke(target, objects);
     }
 
 
