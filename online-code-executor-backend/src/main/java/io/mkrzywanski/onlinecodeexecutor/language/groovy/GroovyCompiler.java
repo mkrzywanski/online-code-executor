@@ -4,13 +4,17 @@ import groovy.lang.GroovyClassLoader;
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompilationException;
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompiledClass;
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.Compiler;
+import org.codehaus.groovy.control.CompilationFailedException;
 import org.codehaus.groovy.control.CompilationUnit;
 import org.codehaus.groovy.control.CompilerConfiguration;
+import org.codehaus.groovy.control.Janitor;
 import org.codehaus.groovy.tools.GroovyClass;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -46,7 +50,7 @@ public class GroovyCompiler implements Compiler {
         CompilationUnit unit = new CompilationUnit(conf, null, groovyClassLoader);
         unit.addSource("test", code);
 
-        unit.compile();
+        compile(unit);
 
         List<GroovyClass> classes = unit.getClasses();
 
@@ -57,6 +61,23 @@ public class GroovyCompiler implements Compiler {
         deleteDirectory(compilationDirectoryPath);
         return compiledClasses;
 
+    }
+
+    private void compile(CompilationUnit unit) throws CompilationException {
+        try {
+            unit.compile();
+        } catch (CompilationFailedException e) {
+            String errorReport = getErrorReport(unit);
+            throw new CompilationException("Compilation error", errorReport);
+        }
+    }
+
+    private String getErrorReport(CompilationUnit unit) {
+        StringWriter stringWriter = new StringWriter();
+        try(PrintWriter printWriter = new PrintWriter(stringWriter)) {
+            unit.getErrorCollector().write(printWriter, new Janitor());
+        }
+        return stringWriter.toString();
     }
 
     private void deleteDirectory(Path compilationDirectoryPath) throws CompilationException {

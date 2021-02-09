@@ -1,8 +1,8 @@
 package io.mkrzywanski.onlinecodeexecutor.language.java;
 
+import io.mkrzywanski.onlinecodeexecutor.language.interceptor.ThreadOutputInterceptor;
 import io.mkrzywanski.onlinecodeexecutor.language.execution.ExecutionException;
 import io.mkrzywanski.onlinecodeexecutor.language.execution.Executor;
-import io.mkrzywanski.onlinecodeexecutor.language.ThreadAwarePrintStream;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -19,10 +19,10 @@ public class JavaExecutor implements Executor {
 
     private static final String MAIN = "main";
 
-    private final ThreadAwarePrintStream threadAwarePrintStream;
+    private final ThreadOutputInterceptor threadAwarePrintStream;
 
     @Inject
-    public JavaExecutor(ThreadAwarePrintStream threadAwarePrintStream) {
+    public JavaExecutor(ThreadOutputInterceptor threadAwarePrintStream) {
         this.threadAwarePrintStream = threadAwarePrintStream;
     }
 

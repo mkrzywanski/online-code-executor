@@ -1,6 +1,6 @@
 package io.mkrzywanski.onlinecodeexecutor.language.groovy;
 
-import io.mkrzywanski.onlinecodeexecutor.language.ThreadAwarePrintStream;
+import io.mkrzywanski.onlinecodeexecutor.language.interceptor.ThreadOutputInterceptor;
 import io.mkrzywanski.onlinecodeexecutor.language.execution.ExecutionException;
 import io.mkrzywanski.onlinecodeexecutor.language.execution.Executor;
 
@@ -17,11 +17,11 @@ public class GroovyExecutor implements Executor {
     private static final String MAIN = "main";
     private static final String EXECUTION_FAILED = "Execution failed";
 
-    private final ThreadAwarePrintStream threadAwarePrintStream;
+    private final ThreadOutputInterceptor interceptor;
 
     @Inject
-    public GroovyExecutor(final ThreadAwarePrintStream threadAwarePrintStream) {
-        this.threadAwarePrintStream = threadAwarePrintStream;
+    public GroovyExecutor(final ThreadOutputInterceptor interceptor) {
+        this.interceptor = interceptor;
     }
 
     @Override
@@ -35,9 +35,9 @@ public class GroovyExecutor implements Executor {
     private String doExecute(final Class<?> mainClass) throws ExecutionException {
         try {
             Method mainMethod = mainClass.getMethod(MAIN, String[].class);
-            threadAwarePrintStream.removeForCurrentThread();
+            interceptor.removeForCurrentThread();
             mainMethod.invoke(null, (Object) new String[]{});
-            return threadAwarePrintStream.getOutputForCurrentThread();
+            return interceptor.getOutputForCurrentThread();
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             throw new ExecutionException(EXECUTION_FAILED, e);
         }
