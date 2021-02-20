@@ -5,14 +5,11 @@
 //import io.mkrzywanski.onlinecodeexecutor.language.Language
 //import io.mkrzywanski.onlinecodeexecutor.language.LanguageTools
 //import io.mkrzywanski.onlinecodeexecutor.language.LanguageToolsResolver
-//import io.mkrzywanski.onlinecodeexecutor.language.compilation.Compiler
 //import io.mkrzywanski.onlinecodeexecutor.language.loading.ClassLoadingService
 //import spock.lang.Specification
 //
 //class ExecutionServiceSpec extends Specification {
 //
-//    def executor = Mock(Executor)
-//    def compiler = Mock(Compiler)
 //    def languageTools = Mock(LanguageTools)
 //    def languageToolsResolver = Mock(LanguageToolsResolver)
 //    def classLoadingService = Mock(ClassLoadingService)

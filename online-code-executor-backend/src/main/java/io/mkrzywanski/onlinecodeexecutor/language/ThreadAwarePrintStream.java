@@ -20,6 +20,11 @@ public class ThreadAwarePrintStream extends PrintStream {
         super.println(x);
     }
 
+//    @Override
+//    public void print(boolean b) {
+//        super.print(b);
+//    }
+
     public String getOutputForCurrentThread() {
         return Optional.ofNullable(printStreamDataTL.get())
                 .orElseThrow(RuntimeException::new)

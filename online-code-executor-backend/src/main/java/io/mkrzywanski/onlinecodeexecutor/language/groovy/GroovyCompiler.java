@@ -4,6 +4,7 @@ import groovy.lang.GroovyClassLoader;
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompilationException;
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompiledClass;
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.Compiler;
+import io.mkrzywanski.onlinecodeexecutor.utils.FileUtils;
 import org.codehaus.groovy.control.CompilationFailedException;
 import org.codehaus.groovy.control.CompilationUnit;
 import org.codehaus.groovy.control.CompilerConfiguration;
@@ -80,11 +81,9 @@ public class GroovyCompiler implements Compiler {
         return stringWriter.toString();
     }
 
-    private void deleteDirectory(Path compilationDirectoryPath) throws CompilationException {
-        try (Stream<Path> walk = Files.walk(compilationDirectoryPath)) {
-            walk.sorted(Comparator.reverseOrder())
-                    .map(Path::toFile)
-                    .forEach(File::delete);
+    private void deleteDirectory(final Path compilationDirectoryPath) throws CompilationException {
+        try {
+            FileUtils.deleteDirectory(compilationDirectoryPath);
         } catch (IOException e) {
             throw new CompilationException(e);
         }
