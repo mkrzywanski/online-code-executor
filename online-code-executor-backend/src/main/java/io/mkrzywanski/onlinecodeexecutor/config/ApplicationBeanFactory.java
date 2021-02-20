@@ -37,8 +37,8 @@ public class ApplicationBeanFactory {
 
     @Singleton
     @Bean
-    public KotlinLanguageTools kotlinLanguageTools(final ThreadAwarePrintStream threadAwarePrintStream) {
-        return new KotlinLanguageTools(new KotlinCompiler(Paths.get(kotlinBaseDir)), new JavaExecutor(threadAwarePrintStream));
+    public KotlinLanguageTools kotlinLanguageTools(final ThreadOutputInterceptor threadOutputInterceptor) {
+        return new KotlinLanguageTools(new KotlinCompiler(Paths.get(kotlinBaseDir)), new JavaExecutor(threadOutputInterceptor));
     }
 
     @Singleton
@@ -76,12 +76,4 @@ public class ApplicationBeanFactory {
         languageToolsMap.put(Language.KOTLIN, kotlinLanguageTools);
         return new LanguageToolsResolver(languageToolsMap);
     }
-
-//    @Bean
-//    @Singleton
-//    public ThreadAwarePrintStream threadAwarePrintStream() {
-//        ThreadAwarePrintStream threadAwarePrintStream = new ThreadAwarePrintStream(System.out);
-//        System.setOut(threadAwarePrintStream);
-//        return threadAwarePrintStream;
-//    }
 }

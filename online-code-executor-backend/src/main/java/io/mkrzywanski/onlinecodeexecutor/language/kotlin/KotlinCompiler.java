@@ -3,7 +3,7 @@ package io.mkrzywanski.onlinecodeexecutor.language.kotlin;
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompilationException;
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompiledClass;
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.Compiler;
-import org.apache.commons.io.FileUtils;
+import io.mkrzywanski.onlinecodeexecutor.utils.FileUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.kotlin.cli.common.ExitCode;
 import org.jetbrains.kotlin.cli.common.arguments.K2JVMCompilerArguments;
@@ -42,14 +42,12 @@ public class KotlinCompiler implements Compiler {
 
         String executionId = UUID.randomUUID().toString();
 
-        //createDirectory(baseDir.toString());
-        String aa = baseDir + "/" + executionId;
-        //createDirectory(aa);
+        String executionDirectory = baseDir + "/" + executionId;
         String o = (String) System.getProperties().get("java.class.path");
         String sourcesDir = getDirectoryPath(executionId, "sources");
         String outputDir = getDirectoryPath(executionId, "output");
+
         createDirectory(sourcesDir);
-        //createFile(sourcesDir + "/source.kt");
         createDirectory(outputDir);
 
         saveToFile(code, sourcesDir);
@@ -63,14 +61,18 @@ public class KotlinCompiler implements Compiler {
 
         Set<CompiledClass> compiledClasses = getCompiledClasses(outputDir);
 
-        try {
-            FileUtils.deleteDirectory(new File(aa));
-        } catch (IOException e) {
-            throw new CompilationException(e);
-        }
+        deleteDirectory(executionDirectory);
 
         return compiledClasses;
 
+    }
+
+    private void deleteDirectory(final String path) throws CompilationException {
+        try {
+            FileUtils.deleteDirectory(Path.of(path));
+        } catch (IOException e) {
+            throw new CompilationException(e);
+        }
     }
 
     @NotNull
@@ -108,8 +110,7 @@ public class KotlinCompiler implements Compiler {
         }
     }
 
-    private void saveToFile(String code, String directory) throws CompilationException {
-        //createFile(s);
+    private void saveToFile(final String code, final String directory) throws CompilationException {
         try {
             Files.writeString(Paths.get(directory + "/source.kt"), code);
         } catch (IOException e) {
@@ -117,10 +118,10 @@ public class KotlinCompiler implements Compiler {
         }
     }
 
-    private void createDirectory(String path) throws CompilationException {
+    private void createDirectory(final String path) throws CompilationException {
         boolean newFile = new File(path).mkdirs();
         if (!newFile) {
-            throw new CompilationException("");
+            throw new CompilationException(String.format("Could not create directory %s", path));
         }
     }
 }
