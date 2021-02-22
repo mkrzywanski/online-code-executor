@@ -7,9 +7,9 @@ public class CompiledClass {
     private final String className;
     private final byte[] bytes;
 
-    public CompiledClass(String className, byte[] bytes) {
+    public CompiledClass(final String className, final byte[] bytes) {
         this.className = className;
-        this.bytes = bytes;
+        this.bytes = Arrays.copyOf(bytes, bytes.length);
     }
 
     public String getClassName() {
@@ -17,7 +17,7 @@ public class CompiledClass {
     }
 
     public byte[] getBytes() {
-        return bytes;
+        return Arrays.copyOf(bytes, bytes.length);
     }
 
     @Override

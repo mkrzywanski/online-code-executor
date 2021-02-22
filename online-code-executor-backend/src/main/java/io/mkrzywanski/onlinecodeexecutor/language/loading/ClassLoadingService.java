@@ -1,6 +1,7 @@
 package io.mkrzywanski.onlinecodeexecutor.language.loading;
 
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompiledClass;
+import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompiledClasses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,17 +15,19 @@ public class ClassLoadingService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ClassLoadingService.class);
 
-    public Set<Class<?>> load(Set<CompiledClass> compiledClass) {
+    public LoadedClasses load(final CompiledClasses compiledClass) {
 
-        Map<String, byte[]> classBytes = compiledClass.stream()
+        Map<String, byte[]> classBytes = compiledClass.getCompiledClasses().stream()
                 .collect(Collectors.toMap(CompiledClass::getClassName, CompiledClass::getBytes));
 
         ClassLoader classLoader = new ByteArrayClassLoader(classBytes);
 
-        return classBytes.keySet()
+        Set<Class<?>> classes = classBytes.keySet()
                 .stream()
                 .map(className -> load(classLoader, className))
                 .collect(Collectors.toSet());
+
+        return new LoadedClasses(classes);
     }
 
     private Class<?> load(final ClassLoader classLoader, final String className) {
