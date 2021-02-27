@@ -3,6 +3,7 @@ package io.mkrzywanski.onlinecodeexecutor.language.kotlin;
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompilationException;
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompiledClass;
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.Compiler;
+import io.mkrzywanski.onlinecodeexecutor.language.execution.ExecutionId;
 import io.mkrzywanski.onlinecodeexecutor.utils.FileUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.kotlin.cli.common.ExitCode;
@@ -40,10 +41,10 @@ public class KotlinCompiler implements Compiler {
     public Set<CompiledClass> compile(final String code) throws CompilationException {
         K2JVMCompilerArguments compilerArguments = new K2JVMCompilerArguments();
 
-        String executionId = UUID.randomUUID().toString();
+        String executionId = ExecutionId.generate().asString();
 
         String executionDirectory = baseDir + "/" + executionId;
-        String o = (String) System.getProperties().get("java.class.path");
+        String classPath = (String) System.getProperties().get("java.class.path");
         String sourcesDir = getDirectoryPath(executionId, "sources");
         String outputDir = getDirectoryPath(executionId, "output");
 
@@ -55,7 +56,7 @@ public class KotlinCompiler implements Compiler {
         compilerArguments.setFreeArgs(List.of(sourcesDir));
         compilerArguments.setDestination(outputDir);
         compilerArguments.setNoStdlib(true);
-        compilerArguments.setClasspath(o);
+        compilerArguments.setClasspath(classPath);
 
         compile(compilerArguments);
 

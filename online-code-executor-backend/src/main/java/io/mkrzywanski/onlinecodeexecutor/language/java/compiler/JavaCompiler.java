@@ -9,6 +9,7 @@ import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompilationExcepti
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompiledClass;
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.Compiler;
 import io.mkrzywanski.onlinecodeexecutor.language.java.DiagnosticsCollectingListener;
+import org.jetbrains.annotations.NotNull;
 
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
@@ -33,20 +34,33 @@ public class JavaCompiler implements Compiler {
         DiagnosticsCollectingListener diagnosticListener = new DiagnosticsCollectingListener();
 
         javax.tools.JavaCompiler.CompilationTask task = javaCompiler.getTask(null, inMemoryFileManager, diagnosticListener, null, null, List.of(javaSourceFromString));
+
         Boolean isSuccess = task.call();
 
-        if(!isSuccess) {
-            String report = diagnosticListener.generateReport();
-            throw new CompilationException("Compilation failure", report);
-        }
+        ensureSuccessfulCompilation(diagnosticListener, isSuccess);
 
+        return getCompiledClassesFromFileManager(inMemoryFileManager);
+
+    }
+
+    private Set<CompiledClass> getCompiledClassesFromFileManager(InMemoryFileManager inMemoryFileManager) {
+        return getCompiledClasses(inMemoryFileManager);
+    }
+
+    private Set<CompiledClass> getCompiledClasses(final InMemoryFileManager inMemoryFileManager) {
         Map<String, byte[]> compiledClassBytes = inMemoryFileManager.getCompiledClassBytes();
 
         return compiledClassBytes.entrySet()
                 .stream()
                 .map(entry -> new CompiledClass(entry.getKey(), entry.getValue()))
                 .collect(Collectors.toSet());
+    }
 
+    private void ensureSuccessfulCompilation(DiagnosticsCollectingListener diagnosticListener, Boolean isSuccess) throws CompilationException {
+        if(!isSuccess) {
+            String report = diagnosticListener.generateReport();
+            throw new CompilationException("Compilation failure", report);
+        }
     }
 
     private String getTopLevelClassName(String code) throws CompilationException {

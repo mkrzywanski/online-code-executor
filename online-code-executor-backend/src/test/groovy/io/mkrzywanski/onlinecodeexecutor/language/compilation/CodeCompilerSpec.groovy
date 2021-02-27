@@ -3,7 +3,6 @@ package io.mkrzywanski.onlinecodeexecutor.language.compilation
 import io.mkrzywanski.onlinecodeexecutor.language.Code
 import io.mkrzywanski.onlinecodeexecutor.language.Language
 import io.mkrzywanski.onlinecodeexecutor.language.java.compiler.JavaCompiler
-import spock.lang.Shared
 import spock.lang.Specification
 
 class CodeCompilerSpec extends Specification {

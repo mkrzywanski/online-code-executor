@@ -4,6 +4,7 @@ import groovy.lang.GroovyClassLoader;
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompilationException;
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompiledClass;
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.Compiler;
+import io.mkrzywanski.onlinecodeexecutor.language.execution.ExecutionId;
 import io.mkrzywanski.onlinecodeexecutor.utils.FileUtils;
 import org.codehaus.groovy.control.CompilationFailedException;
 import org.codehaus.groovy.control.CompilationUnit;
@@ -35,9 +36,9 @@ public class GroovyCompiler implements Compiler {
     }
 
     @Override
-    public Set<CompiledClass> compile(String code) throws CompilationException {
+    public Set<CompiledClass> compile(final String code) throws CompilationException {
 
-        String executionId = UUID.randomUUID().toString();
+        String executionId = ExecutionId.generate().asString();
 
         Path compilationDirectoryPath = Paths.get(compilationBaseDirectory + "/" + executionId);
         createCompilationDirectory(compilationDirectoryPath);

@@ -17,8 +17,9 @@ public class ClassLoadingService {
 
     public LoadedClasses load(final CompiledClasses compiledClass) {
 
-        Map<String, byte[]> classBytes = compiledClass.getCompiledClasses().stream()
-                .collect(Collectors.toMap(CompiledClass::getClassName, CompiledClass::getBytes));
+        Map<String, byte[]> classBytes = compiledClass.getCompiledClasses()
+                .stream()
+                .collect(Collectors.toMap(CompiledClass::getName, CompiledClass::getBytes));
 
         ClassLoader classLoader = new ByteArrayClassLoader(classBytes);
 

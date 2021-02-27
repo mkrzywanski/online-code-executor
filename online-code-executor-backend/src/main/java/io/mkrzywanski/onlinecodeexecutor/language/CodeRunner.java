@@ -2,12 +2,12 @@ package io.mkrzywanski.onlinecodeexecutor.language;
 
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.CodeCompiler;
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompiledClasses;
-import io.mkrzywanski.onlinecodeexecutor.language.execution.ExecutionException;
-import io.mkrzywanski.onlinecodeexecutor.language.execution.ExecutionResult;
+import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompilationException;
 import io.mkrzywanski.onlinecodeexecutor.language.execution.Executor;
 import io.mkrzywanski.onlinecodeexecutor.language.loading.ClassLoadingService;
-import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompilationException;
 import io.mkrzywanski.onlinecodeexecutor.language.loading.LoadedClasses;
+import io.mkrzywanski.onlinecodeexecutor.language.execution.ExecutionException;
+import io.mkrzywanski.onlinecodeexecutor.language.execution.ExecutionResult;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
