@@ -1,7 +1,7 @@
 package io.mkrzywanski.onlinecodeexecutor.language.execution;
 
-import java.util.Set;
+import io.mkrzywanski.onlinecodeexecutor.language.loading.LoadedClasses;
 
 public interface Executor {
-    String execute(Set<Class<?>> loadedClasses) throws ExecutionException;
+    ExecutionResult execute(LoadedClasses loadedClasses) throws ExecutionException;
 }

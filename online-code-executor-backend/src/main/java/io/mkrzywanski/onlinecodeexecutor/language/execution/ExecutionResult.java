@@ -4,7 +4,7 @@ public class ExecutionResult {
 
     private String output;
 
-    public ExecutionResult() {
+    private ExecutionResult() {
     }
 
     public ExecutionResult(String output) {

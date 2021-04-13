@@ -1,11 +1,11 @@
 package io.mkrzywanski.onlinecodeexecutor.language.execution;
 
 public class ExecutionException extends Exception {
-    public ExecutionException(String message) {
+    public ExecutionException(final String message) {
         super(message);
     }
 
-    public ExecutionException(String message, Throwable cause) {
+    public ExecutionException(final String message, final Throwable cause) {
         super(message, cause);
     }
 

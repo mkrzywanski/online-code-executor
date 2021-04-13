@@ -6,7 +6,7 @@ import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Post;
 import io.mkrzywanski.onlinecodeexecutor.language.execution.ExecutionException;
-import io.mkrzywanski.onlinecodeexecutor.language.execution.ExecutionService;
+import io.mkrzywanski.onlinecodeexecutor.language.CodeRunner;
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompilationException;
 import io.mkrzywanski.onlinecodeexecutor.language.Code;
 import io.mkrzywanski.onlinecodeexecutor.language.execution.ExecutionResult;
@@ -16,16 +16,16 @@ import javax.inject.Inject;
 @Controller
 public class CodeExecutionController {
 
-    private final ExecutionService executionService;
+    private final CodeRunner codeRunner;
 
     @Inject
-    public CodeExecutionController(ExecutionService executionService) {
-        this.executionService = executionService;
+    public CodeExecutionController(CodeRunner codeRunner) {
+        this.codeRunner = codeRunner;
     }
 
     @Post(uri = Endpoints.EXECUTE, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    public HttpResponse<ExecutionResult> execute(@Body Code code) throws CompilationException, ExecutionException {
-        ExecutionResult executionResult = executionService.execute(code);
+    public HttpResponse<ExecutionResult> execute(@Body final Code code) throws CompilationException, ExecutionException {
+        ExecutionResult executionResult = codeRunner.run(code);
         return HttpResponse.ok(executionResult);
     }
 }

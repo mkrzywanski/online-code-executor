@@ -1,4 +1,4 @@
-package io.mkrzywanski.onlinecodeexecutor.config;
+package io.mkrzywanski.onlinecodeexecutor.infrastructure.config;
 
 import io.micronaut.context.event.StartupEvent;
 import io.micronaut.runtime.event.annotation.EventListener;

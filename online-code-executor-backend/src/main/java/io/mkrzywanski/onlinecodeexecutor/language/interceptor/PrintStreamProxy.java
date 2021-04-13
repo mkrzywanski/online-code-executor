@@ -1,6 +1,6 @@
 package io.mkrzywanski.onlinecodeexecutor.language.interceptor;
 
-import io.mkrzywanski.onlinecodeexecutor.config.ApplicationBeanFactory;
+import io.mkrzywanski.onlinecodeexecutor.infrastructure.config.ApplicationBeanFactory;
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.implementation.InvocationHandlerAdapter;
 import net.bytebuddy.matcher.ElementMatchers;
@@ -19,13 +19,13 @@ public final class PrintStreamProxy {
     public static PrintStream create(final InvocationHandler handler, final PrintStream target) {
         try {
             return doCreate(handler, target);
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+        } catch (Exception e) {
             throw new IllegalStateException(e);
         }
     }
 
     @NotNull
-    private static PrintStream doCreate(final InvocationHandler handler, final PrintStream target) throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+    private static PrintStream doCreate(final InvocationHandler handler, final PrintStream target) throws Exception {
         return new ByteBuddy()
                 .subclass(PrintStream.class)
                 .method(ElementMatchers.any())

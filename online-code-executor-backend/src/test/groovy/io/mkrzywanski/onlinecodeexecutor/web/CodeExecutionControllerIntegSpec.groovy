@@ -15,7 +15,7 @@ import spock.lang.Specification
 import javax.inject.Inject
 
 @MicronautTest
-class CodeExecutionControllerSpec extends Specification {
+class CodeExecutionControllerIntegSpec extends Specification {
 
     @Shared
     @Inject
@@ -28,8 +28,9 @@ class CodeExecutionControllerSpec extends Specification {
         def code = new Code(Language.JAVA, codeString)
 
         when:
-        HttpResponse<ExecutionResult> result = client.toBlocking()
+        HttpResponse<ExecutionResult> result = client
                 .exchange(HttpRequest.create(HttpMethod.POST, Endpoints.EXECUTE).body(code), ExecutionResult)
+                .blockingSingle()
 
         then:
         result.code() == 200

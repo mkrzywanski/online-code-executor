@@ -1,24 +1,24 @@
 package io.mkrzywanski.onlinecodeexecutor.language.kotlin
 
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompilationException
-import io.mkrzywanski.onlinecodeexecutor.utils.FileUtils
+import io.mkrzywanski.onlinecodeexecutor.language.file.FileOperations
 import spock.lang.Shared
 import spock.lang.Specification
 
 import java.nio.file.Files
-import java.nio.file.Path
 
 import static org.hamcrest.Matchers.hasSize
 
 class KotlinCompilerSpec extends Specification {
     @Shared
-    Path tempDir = Files.createTempDirectory("groovy");
+    def tempDir = Files.createTempDirectory("groovy")
 
     @Shared
-    KotlinCompiler kotlinCompiler = new KotlinCompiler(tempDir)
+    def fileOperations = FileOperations.create()
+    def kotlinCompiler = new KotlinCompiler(tempDir, fileOperations)
 
     void cleanupSpec() {
-        FileUtils.deleteDirectory(tempDir)
+        fileOperations.deleteDir(tempDir)
     }
 
     def "compile kotlin"() {
