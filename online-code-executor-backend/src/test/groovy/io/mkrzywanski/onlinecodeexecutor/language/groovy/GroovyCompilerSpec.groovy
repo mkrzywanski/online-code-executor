@@ -1,25 +1,25 @@
 package io.mkrzywanski.onlinecodeexecutor.language.groovy
 
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompilationException
-import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompiledClass
-import io.mkrzywanski.onlinecodeexecutor.utils.FileUtils
+import io.mkrzywanski.onlinecodeexecutor.language.file.FileOperations
 import spock.lang.Shared
 import spock.lang.Specification
 
 import java.nio.file.Files
-import java.nio.file.Path
 
 import static org.hamcrest.Matchers.hasSize
 
 class GroovyCompilerSpec extends Specification {
-    @Shared
-    Path tempDir = Files.createTempDirectory("groovy");
 
     @Shared
-    GroovyCompiler groovyCompiler = new GroovyCompiler(tempDir)
+    def tempDir = Files.createTempDirectory("groovy")
+
+    @Shared
+    def fileOperations = FileOperations.create()
+    def groovyCompiler = new GroovyCompiler(tempDir, fileOperations)
 
     void cleanupSpec() {
-        FileUtils.deleteDirectory(tempDir)
+        fileOperations.deleteDir(tempDir)
     }
 
     def "should compile groovy code"() {
@@ -27,10 +27,10 @@ class GroovyCompilerSpec extends Specification {
         String code = "class Test {static void main(String[] args) {println \"Hello Groovy\"}}"
 
         when:
-        def compile = groovyCompiler.compile(code)
+        def compiledClasses = groovyCompiler.compile(code)
 
         then:
-        compile hasSize(1)
+        compiledClasses hasSize(1)
 
     }
 
@@ -42,7 +42,11 @@ class GroovyCompilerSpec extends Specification {
         groovyCompiler.compile(code)
 
         then:
-        def exception =  thrown(CompilationException)
+        def exception = thrown(CompilationException)
         !exception.report.isEmpty()
+    }
+
+    def "should throw exception when there is an error creating directory"() {
+
     }
 }

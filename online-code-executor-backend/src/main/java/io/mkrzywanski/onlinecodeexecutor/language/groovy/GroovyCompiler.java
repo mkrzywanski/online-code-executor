@@ -5,7 +5,7 @@ import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompilationExcepti
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompiledClass;
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.Compiler;
 import io.mkrzywanski.onlinecodeexecutor.language.execution.ExecutionId;
-import io.mkrzywanski.onlinecodeexecutor.utils.FileUtils;
+import io.mkrzywanski.onlinecodeexecutor.language.file.FileOperations;
 import org.codehaus.groovy.control.CompilationFailedException;
 import org.codehaus.groovy.control.CompilationUnit;
 import org.codehaus.groovy.control.CompilerConfiguration;
@@ -17,22 +17,20 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class GroovyCompiler implements Compiler {
 
     private final Path compilationBaseDirectory;
+    private final FileOperations fileOperations;
 
-    public GroovyCompiler(final Path compilationBaseDirectory) {
+    public GroovyCompiler(final Path compilationBaseDirectory, FileOperations fileOperations) {
         this.compilationBaseDirectory = compilationBaseDirectory;
+        this.fileOperations = fileOperations;
     }
 
     @Override
@@ -84,7 +82,7 @@ public class GroovyCompiler implements Compiler {
 
     private void deleteDirectory(final Path compilationDirectoryPath) throws CompilationException {
         try {
-            FileUtils.deleteDirectory(compilationDirectoryPath);
+            fileOperations.deleteDir(compilationDirectoryPath);
         } catch (IOException e) {
             throw new CompilationException(e);
         }

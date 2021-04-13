@@ -6,7 +6,7 @@ public class ExecutionId {
 
     private final UUID uuid;
 
-    public ExecutionId() {
+    private ExecutionId() {
         this.uuid = UUID.randomUUID();
     }
 
