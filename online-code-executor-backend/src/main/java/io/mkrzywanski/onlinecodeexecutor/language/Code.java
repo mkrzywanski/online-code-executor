@@ -1,13 +1,14 @@
 package io.mkrzywanski.onlinecodeexecutor.language;
 
 public class Code {
+
     private Language language;
     private String value;
 
     private Code() {
     }
 
-    public Code(Language language, String value) {
+    public Code(final Language language, final String value) {
         this.language = language;
         this.value = value;
     }

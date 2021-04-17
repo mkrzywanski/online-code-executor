@@ -20,15 +20,15 @@ public class CodeRunner {
     private final Executor executor;
 
     @Inject
-    public CodeRunner(CodeCompiler codeCompiler, final ClassLoadingService classLoadingService, Executor executor) {
+    public CodeRunner(final CodeCompiler codeCompiler, final ClassLoadingService classLoadingService, final Executor executor) {
         this.codeCompiler = codeCompiler;
         this.classLoadingService = classLoadingService;
         this.executor = executor;
     }
 
     public ExecutionResult run(final Code code) throws CompilationException, ExecutionException {
-        CompiledClasses compiledClasses = codeCompiler.compile(code);
-        LoadedClasses loadedClasses = classLoadingService.load(compiledClasses);
+        final CompiledClasses compiledClasses = codeCompiler.compile(code);
+        final LoadedClasses loadedClasses = classLoadingService.load(compiledClasses);
         return executor.execute(loadedClasses);
     }
 }

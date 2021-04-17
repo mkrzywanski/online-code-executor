@@ -18,7 +18,7 @@ public class StartupEventListener {
     }
 
     @EventListener
-    public void onStartupEvent(StartupEvent event) {
+    public void onStartupEvent(final StartupEvent event) {
         System.setOut(printStreamProxy);
     }
 }

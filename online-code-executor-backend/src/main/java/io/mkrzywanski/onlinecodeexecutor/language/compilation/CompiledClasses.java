@@ -6,7 +6,7 @@ public class CompiledClasses {
 
     private final Set<CompiledClass> compiledClasses;
 
-    public CompiledClasses(Set<CompiledClass> compiledClasses) {
+    public CompiledClasses(final Set<CompiledClass> compiledClasses) {
         this.compiledClasses = compiledClasses;
     }
 

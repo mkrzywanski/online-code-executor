@@ -2,7 +2,6 @@ package io.mkrzywanski.onlinecodeexecutor.language.execution;
 
 import io.mkrzywanski.onlinecodeexecutor.language.interceptor.ThreadOutputInterceptor;
 import io.mkrzywanski.onlinecodeexecutor.language.loading.LoadedClasses;
-import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -24,7 +23,7 @@ public class DefaultExecutor implements Executor {
 
     @Override
     public ExecutionResult execute(final LoadedClasses loadedClasses) throws ExecutionException {
-        Class<?> mainClass = loadedClasses.mainClass();
+        final Class<?> mainClass = loadedClasses.mainClass();
         return executeClass(mainClass);
     }
 
@@ -36,8 +35,8 @@ public class DefaultExecutor implements Executor {
         }
     }
 
-    private ExecutionResult doExecute(Class<?> mainClass) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        Method mainMethod = mainClass.getMethod(MAIN, String[].class);
+    private ExecutionResult doExecute(final Class<?> mainClass) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        final Method mainMethod = mainClass.getMethod(MAIN, String[].class);
         threadAwarePrintStream.removeForCurrentThread();
         mainMethod.invoke(null, ARGUMENTS);
         return new ExecutionResult(threadAwarePrintStream.getOutputForCurrentThread());

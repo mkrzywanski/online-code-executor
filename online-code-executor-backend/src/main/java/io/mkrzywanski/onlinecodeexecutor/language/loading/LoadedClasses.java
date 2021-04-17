@@ -15,7 +15,7 @@ public class LoadedClasses {
 
     private final Set<Class<?>> classes;
 
-    public LoadedClasses(Set<Class<?>> classes) {
+    public LoadedClasses(final Set<Class<?>> classes) {
         this.classes = classes;
     }
 
@@ -29,9 +29,9 @@ public class LoadedClasses {
                 .findFirst();
     }
 
-    private boolean isMainClass(Class<?> clazz) {
-        Method[] declaredMethods = clazz.getDeclaredMethods();
-        Predicate<Method> isMainMethod = method -> MAIN.equals(method.getName())
+    private boolean isMainClass(final Class<?> clazz) {
+        final Method[] declaredMethods = clazz.getDeclaredMethods();
+        final Predicate<Method> isMainMethod = method -> MAIN.equals(method.getName())
                 && Modifier.isStatic(method.getModifiers())
                 && method.getParameterCount() == 1
                 && method.getParameterTypes()[0] == String[].class;

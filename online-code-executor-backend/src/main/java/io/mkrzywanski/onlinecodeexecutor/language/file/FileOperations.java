@@ -17,10 +17,10 @@ public final class FileOperations {
     }
 
     public void createFile(final Path path) throws IOException {
-        File compilationDir = new File(path.toUri());
-        boolean mkdirs = compilationDir.mkdirs();
+        final File compilationDir = new File(path.toUri());
+        final boolean mkdirs = compilationDir.mkdirs();
 
-        if(!mkdirs) {
+        if (!mkdirs) {
             throw new IOException("Could not crete directory");
         }
     }

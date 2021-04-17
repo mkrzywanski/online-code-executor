@@ -9,7 +9,7 @@ import java.util.Optional;
 public class Compilers {
     private final Map<Language, Compiler> compilers;
 
-    public Compilers(Map<Language, Compiler> compilers) {
+    public Compilers(final Map<Language, Compiler> compilers) {
         this.compilers = compilers;
     }
 

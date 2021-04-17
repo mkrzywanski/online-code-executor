@@ -12,12 +12,12 @@ public class DiagnosticsCollectingListener implements DiagnosticListener<JavaFil
     private final List<Diagnostic<? extends JavaFileObject>> diagnostics = new ArrayList<>();
 
     @Override
-    public void report(Diagnostic<? extends JavaFileObject> diagnostic) {
-        diagnostics.add(diagnostic);
+    public void report(final Diagnostic<? extends JavaFileObject> diagnostic) {
+        this.diagnostics.add(diagnostic);
     }
 
     public String generateReport() {
-        return diagnostics.stream()
+        return this.diagnostics.stream()
                 .map(Object::toString)
                 .collect(Collectors.joining("\n"));
     }

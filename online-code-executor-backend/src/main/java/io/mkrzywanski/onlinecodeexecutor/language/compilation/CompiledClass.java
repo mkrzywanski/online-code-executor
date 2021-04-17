@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class CompiledClass {
+    public static final int PRIME = 31;
     private final String name;
     private final byte[] bytes;
 
@@ -21,10 +22,14 @@ public class CompiledClass {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof CompiledClass)) return false;
-        CompiledClass that = (CompiledClass) o;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof CompiledClass)) {
+            return false;
+        }
+        final CompiledClass that = (CompiledClass) o;
         return getName().equals(that.getName()) &&
                 Arrays.equals(getBytes(), that.getBytes());
     }
@@ -32,7 +37,7 @@ public class CompiledClass {
     @Override
     public int hashCode() {
         int result = Objects.hash(getName());
-        result = 31 * result + Arrays.hashCode(getBytes());
+        result = PRIME * result + Arrays.hashCode(getBytes());
         return result;
     }
 }

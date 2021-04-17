@@ -2,6 +2,7 @@ plugins {
     id("groovy")
     id("com.github.johnrengelman.shadow") version "6.1.0"
     id("io.micronaut.application") version "1.3.3"
+    id("checkstyle")
 }
 
 version = "0.1"
@@ -52,6 +53,12 @@ java {
     sourceCompatibility = JavaVersion.toVersion("14")
     targetCompatibility = JavaVersion.toVersion("14")
 }
+
+task checkstyle {
+    dependsOn('checkstyleMain', 'checkstyleTest')
+}
+
+tasks.getByName('test').dependsOn('checkstyle')
 
 
 

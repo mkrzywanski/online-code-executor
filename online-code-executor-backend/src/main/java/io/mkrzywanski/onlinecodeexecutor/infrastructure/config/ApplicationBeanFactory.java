@@ -46,7 +46,7 @@ public class ApplicationBeanFactory {
 
     @Singleton
     @Bean
-    public KotlinCompiler kotlinCompiler(FileOperations fileOperations) {
+    public KotlinCompiler kotlinCompiler(final FileOperations fileOperations) {
         return new KotlinCompiler(Paths.get(kotlinBaseDir), fileOperations);
     }
 
@@ -55,7 +55,7 @@ public class ApplicationBeanFactory {
     public Compilers compilers(final JavaCompiler javaCompiler,
                                final KotlinCompiler kotlinCompiler,
                                final GroovyCompiler groovyCompiler) {
-        Map<Language, Compiler> compilerMap = new EnumMap<>(Language.class);
+        final Map<Language, Compiler> compilerMap = new EnumMap<>(Language.class);
         compilerMap.put(Language.JAVA, javaCompiler);
         compilerMap.put(Language.KOTLIN, kotlinCompiler);
         compilerMap.put(Language.GROOVY, groovyCompiler);

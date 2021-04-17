@@ -9,7 +9,6 @@ import org.jetbrains.annotations.NotNull;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.InvocationTargetException;
 
 public final class PrintStreamProxy {
 
@@ -19,7 +18,7 @@ public final class PrintStreamProxy {
     public static PrintStream create(final InvocationHandler handler, final PrintStream target) {
         try {
             return doCreate(handler, target);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw new IllegalStateException(e);
         }
     }

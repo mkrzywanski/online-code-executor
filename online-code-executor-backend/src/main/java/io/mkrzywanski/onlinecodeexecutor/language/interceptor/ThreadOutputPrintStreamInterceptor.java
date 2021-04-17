@@ -13,7 +13,7 @@ public class ThreadOutputPrintStreamInterceptor implements InvocationHandler, Th
 
     private final ThreadLocal<PrintStreamData> printStreamDataTL = ThreadLocal.withInitial(PrintStreamData::newInstance);
 
-    public ThreadOutputPrintStreamInterceptor(PrintStream target) {
+    public ThreadOutputPrintStreamInterceptor(final PrintStream target) {
         this.target = target;
     }
 
@@ -30,9 +30,9 @@ public class ThreadOutputPrintStreamInterceptor implements InvocationHandler, Th
     }
 
     @Override
-    public Object invoke(Object o, Method targetMethod, Object[] objects) throws Throwable {
-        PrintStreamData printStreamData = printStreamDataTL.get();
-        PrintStream printStream = printStreamData.printStream;
+    public Object invoke(final Object o, final Method targetMethod, final Object[] objects) throws Throwable {
+        final PrintStreamData printStreamData = printStreamDataTL.get();
+        final PrintStream printStream = printStreamData.printStream;
 
         targetMethod.invoke(printStream, objects);
 
@@ -44,14 +44,14 @@ public class ThreadOutputPrintStreamInterceptor implements InvocationHandler, Th
         private final PrintStream printStream;
         private final OutputStream outputStream;
 
-        private static PrintStreamData newInstance() {
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            return new PrintStreamData(new PrintStream(byteArrayOutputStream), byteArrayOutputStream);
-        }
-
-        public PrintStreamData(PrintStream printStream, OutputStream outputStream) {
+        private PrintStreamData(final PrintStream printStream, final OutputStream outputStream) {
             this.printStream = printStream;
             this.outputStream = outputStream;
+        }
+
+        private static PrintStreamData newInstance() {
+            final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            return new PrintStreamData(new PrintStream(byteArrayOutputStream), byteArrayOutputStream);
         }
     }
 }

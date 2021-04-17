@@ -6,10 +6,10 @@ import io.micronaut.http.server.exceptions.ExceptionHandler;
 import io.mkrzywanski.onlinecodeexecutor.language.loading.ClassLoadingException;
 import io.mkrzywanski.onlinecodeexecutor.web.ErrorOutput;
 
-public class ClassLoadingExceptionHandler implements ExceptionHandler<ClassLoadingException, HttpResponse<ErrorOutput>> {
+class ClassLoadingExceptionHandler implements ExceptionHandler<ClassLoadingException, HttpResponse<ErrorOutput>> {
     @Override
-    public HttpResponse<ErrorOutput> handle(HttpRequest request, ClassLoadingException exception) {
-        ErrorOutput errorOutput = new ErrorOutput(500, exception.getMessage());
+    public HttpResponse<ErrorOutput> handle(final HttpRequest request, final ClassLoadingException exception) {
+        final ErrorOutput errorOutput = new ErrorOutput(500, exception.getMessage());
         return HttpResponse.serverError(errorOutput);
     }
 }
