@@ -54,11 +54,5 @@ java {
     targetCompatibility = JavaVersion.toVersion("14")
 }
 
-task checkstyle {
-    dependsOn('checkstyleMain', 'checkstyleTest')
-}
-
-tasks.getByName('test').dependsOn('checkstyle')
-
 
 
