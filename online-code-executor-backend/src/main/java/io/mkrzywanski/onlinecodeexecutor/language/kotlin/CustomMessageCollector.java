@@ -21,12 +21,15 @@ public class CustomMessageCollector implements MessageCollector {
 
     @Override
     public boolean hasErrors() {
-        return messages.stream().anyMatch(message -> message.severity == CompilerMessageSeverity.ERROR);
+        return messages.stream()
+                .anyMatch(Message::isErrorMessage);
     }
 
     @Override
-    public void report(@NotNull CompilerMessageSeverity compilerMessageSeverity, @NotNull String s, @Nullable CompilerMessageSourceLocation compilerMessageSourceLocation) {
-        messages.add(new Message(compilerMessageSeverity, s, compilerMessageSourceLocation));
+    public void report(@NotNull final CompilerMessageSeverity compilerMessageSeverity,
+                       @NotNull final String message,
+                       @Nullable final CompilerMessageSourceLocation compilerMessageSourceLocation) {
+        messages.add(new Message(compilerMessageSeverity, message, compilerMessageSourceLocation));
     }
 
     public String report() {
@@ -36,11 +39,12 @@ public class CustomMessageCollector implements MessageCollector {
     }
 
     private static class Message {
+
         private final CompilerMessageSeverity severity;
         private final String message;
         private final CompilerMessageSourceLocation messageSourceLocation;
 
-        private Message(CompilerMessageSeverity severity, String message, CompilerMessageSourceLocation messageSourceLocation) {
+        private Message(final CompilerMessageSeverity severity, final String message, final CompilerMessageSourceLocation messageSourceLocation) {
             this.severity = severity;
             this.message = message;
             this.messageSourceLocation = messageSourceLocation;
@@ -56,6 +60,10 @@ public class CustomMessageCollector implements MessageCollector {
 
         public CompilerMessageSourceLocation getMessageSourceLocation() {
             return messageSourceLocation;
+        }
+
+        public boolean isErrorMessage() {
+            return this.severity == CompilerMessageSeverity.ERROR;
         }
 
         @Override

@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Graylog Pipeline Processor.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package io.mkrzywanski.onlinecodeexecutor.language.java.compiler;
 
 import javax.tools.FileObject;
@@ -56,7 +57,7 @@ public class InMemoryFileManager extends ForwardingJavaFileManager<StandardJavaF
     }
 
     @Override
-    public JavaFileObject getJavaFileForOutput(final Location location, final String className, JavaFileObject.Kind kind, FileObject sibling) throws IOException {
+    public JavaFileObject getJavaFileForOutput(final Location location, final String className, final JavaFileObject.Kind kind, final FileObject sibling) {
         return new SimpleJavaFileObject(URI.create(className), kind) {
             @NotNull
             public OutputStream openOutputStream() {

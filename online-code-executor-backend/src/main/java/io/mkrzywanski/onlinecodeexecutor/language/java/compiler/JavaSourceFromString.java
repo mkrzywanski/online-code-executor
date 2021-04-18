@@ -7,14 +7,14 @@ public class JavaSourceFromString extends SimpleJavaFileObject {
 
     private final String code;
 
-    public JavaSourceFromString(String name, String code) {
-        super(URI.create("string:///" + name.replace('.','/') + Kind.SOURCE.extension),
+    public JavaSourceFromString(final String name, final String code) {
+        super(URI.create("string:///" + name.replace('.', '/') + Kind.SOURCE.extension),
                 Kind.SOURCE);
         this.code = code;
     }
 
     @Override
-    public CharSequence getCharContent(boolean ignoreEncodingErrors) {
+    public CharSequence getCharContent(final boolean ignoreEncodingErrors) {
         return code;
     }
 }

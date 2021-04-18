@@ -7,7 +7,7 @@ public class ExecutionResult {
     private ExecutionResult() {
     }
 
-    public ExecutionResult(String output) {
+    public ExecutionResult(final String output) {
         this.output = output;
     }
 

@@ -17,13 +17,13 @@ public class ClassLoadingService {
 
     public LoadedClasses load(final CompiledClasses compiledClass) {
 
-        Map<String, byte[]> classBytes = compiledClass.getCompiledClasses()
+        final Map<String, byte[]> classBytes = compiledClass.getCompiledClasses()
                 .stream()
                 .collect(Collectors.toMap(CompiledClass::getName, CompiledClass::getBytes));
 
-        ClassLoader classLoader = new ByteArrayClassLoader(classBytes);
+        final ClassLoader classLoader = new ByteArrayClassLoader(classBytes);
 
-        Set<Class<?>> classes = classBytes.keySet()
+        final Set<Class<?>> classes = classBytes.keySet()
                 .stream()
                 .map(className -> load(classLoader, className))
                 .collect(Collectors.toSet());
@@ -34,7 +34,7 @@ public class ClassLoadingService {
     private Class<?> load(final ClassLoader classLoader, final String className) {
         try {
             return classLoader.loadClass(className);
-        } catch (ClassNotFoundException e) {
+        } catch (final ClassNotFoundException e) {
             throw new ClassLoadingException(e);
         }
     }

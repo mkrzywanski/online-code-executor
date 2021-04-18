@@ -9,7 +9,6 @@ import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompilationExcepti
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.CompiledClass;
 import io.mkrzywanski.onlinecodeexecutor.language.compilation.Compiler;
 import io.mkrzywanski.onlinecodeexecutor.language.java.DiagnosticsCollectingListener;
-import org.jetbrains.annotations.NotNull;
 
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
@@ -24,18 +23,18 @@ public class JavaCompiler implements Compiler {
     private final JavaParser javaParser = new JavaParser();
 
     @Override
-    public Set<CompiledClass> compile(String code) throws CompilationException {
+    public Set<CompiledClass> compile(final String code) throws CompilationException {
 
-        String topLevelClassName = getTopLevelClassName(code);
+        final String topLevelClassName = getTopLevelClassName(code);
 
-        StandardJavaFileManager standardFileManager = javaCompiler.getStandardFileManager(null, null, null);
-        InMemoryFileManager inMemoryFileManager = new InMemoryFileManager(standardFileManager);
-        JavaSourceFromString javaSourceFromString = new JavaSourceFromString(topLevelClassName, code);
-        DiagnosticsCollectingListener diagnosticListener = new DiagnosticsCollectingListener();
+        final StandardJavaFileManager standardFileManager = javaCompiler.getStandardFileManager(null, null, null);
+        final InMemoryFileManager inMemoryFileManager = new InMemoryFileManager(standardFileManager);
+        final JavaSourceFromString javaSourceFromString = new JavaSourceFromString(topLevelClassName, code);
+        final DiagnosticsCollectingListener diagnosticListener = new DiagnosticsCollectingListener();
 
-        javax.tools.JavaCompiler.CompilationTask task = javaCompiler.getTask(null, inMemoryFileManager, diagnosticListener, null, null, List.of(javaSourceFromString));
+        final javax.tools.JavaCompiler.CompilationTask task = javaCompiler.getTask(null, inMemoryFileManager, diagnosticListener, null, null, List.of(javaSourceFromString));
 
-        Boolean isSuccess = task.call();
+        final Boolean isSuccess = task.call();
 
         ensureSuccessfulCompilation(diagnosticListener, isSuccess);
 
@@ -43,12 +42,12 @@ public class JavaCompiler implements Compiler {
 
     }
 
-    private Set<CompiledClass> getCompiledClassesFromFileManager(InMemoryFileManager inMemoryFileManager) {
+    private Set<CompiledClass> getCompiledClassesFromFileManager(final InMemoryFileManager inMemoryFileManager) {
         return getCompiledClasses(inMemoryFileManager);
     }
 
     private Set<CompiledClass> getCompiledClasses(final InMemoryFileManager inMemoryFileManager) {
-        Map<String, byte[]> compiledClassBytes = inMemoryFileManager.getCompiledClassBytes();
+        final Map<String, byte[]> compiledClassBytes = inMemoryFileManager.getCompiledClassBytes();
 
         return compiledClassBytes.entrySet()
                 .stream()
@@ -56,22 +55,23 @@ public class JavaCompiler implements Compiler {
                 .collect(Collectors.toSet());
     }
 
-    private void ensureSuccessfulCompilation(DiagnosticsCollectingListener diagnosticListener, Boolean isSuccess) throws CompilationException {
-        if(!isSuccess) {
-            String report = diagnosticListener.generateReport();
+    private void ensureSuccessfulCompilation(final DiagnosticsCollectingListener diagnosticListener,
+                                             final boolean isSuccess) throws CompilationException {
+        if (!isSuccess) {
+            final String report = diagnosticListener.generateReport();
             throw new CompilationException("Compilation failure", report);
         }
     }
 
-    private String getTopLevelClassName(String code) throws CompilationException {
-        ParseResult<CompilationUnit> result = javaParser.parse(code);
+    private String getTopLevelClassName(final String code) throws CompilationException {
+        final ParseResult<CompilationUnit> result = javaParser.parse(code);
 
-        CompilationUnit compilationUnit = result.getResult()
+        final CompilationUnit compilationUnit = result.getResult()
                 .orElseThrow(() -> new CompilationException("Compilation failure"));
 
-        NodeList<TypeDeclaration<?>> types = compilationUnit.getTypes();
+        final NodeList<TypeDeclaration<?>> types = compilationUnit.getTypes();
 
-        TypeDeclaration<?> typeDeclaration = types.stream()
+        final TypeDeclaration<?> typeDeclaration = types.stream()
                 .filter(TypeDeclaration::isTopLevelType)
                 .findFirst()
                 .orElseThrow(() -> new CompilationException("No top level class found"));

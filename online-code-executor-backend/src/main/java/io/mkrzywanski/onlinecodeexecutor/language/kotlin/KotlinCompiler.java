@@ -38,14 +38,14 @@ public class KotlinCompiler implements Compiler {
 
     @Override
     public Set<CompiledClass> compile(final String code) throws CompilationException {
-        K2JVMCompilerArguments compilerArguments = new K2JVMCompilerArguments();
+        final K2JVMCompilerArguments compilerArguments = new K2JVMCompilerArguments();
 
-        String executionId = ExecutionId.generate().asString();
+        final String executionId = ExecutionId.generate().asString();
 
-        String executionDirectory = baseDir + "/" + executionId;
-        String classPath = (String) System.getProperties().get("java.class.path");
-        String sourcesDir = getDirectoryPath(executionId, "sources");
-        String outputDir = getDirectoryPath(executionId, "output");
+        final String executionDirectory = baseDir + "/" + executionId;
+        final String classPath = (String) System.getProperties().get("java.class.path");
+        final String sourcesDir = getDirectoryPath(executionId, "sources");
+        final String outputDir = getDirectoryPath(executionId, "output");
 
         createDirectory(sourcesDir);
         createDirectory(outputDir);
@@ -59,7 +59,7 @@ public class KotlinCompiler implements Compiler {
 
         compile(compilerArguments);
 
-        Set<CompiledClass> compiledClasses = getCompiledClasses(outputDir);
+        final Set<CompiledClass> compiledClasses = getCompiledClasses(outputDir);
 
         deleteDirectory(executionDirectory);
 
@@ -67,32 +67,32 @@ public class KotlinCompiler implements Compiler {
 
     }
 
-    private void deleteDirectory(final String path) throws CompilationException {
-        try {
-            fileOperations.deleteDir(Path.of(path));
-        } catch (IOException e) {
-            throw new CompilationException(e);
-        }
-    }
-
-    @NotNull
-    private String getDirectoryPath(String executionId, String sources) {
-        return baseDir.toString() + "/" + executionId + "/" + sources;
-    }
-
     private void compile(final K2JVMCompilerArguments compilerArguments) throws CompilationException {
-        CustomMessageCollector messageCollector = new CustomMessageCollector();
-        ExitCode exitCode = k2JVMCompiler.execImpl(messageCollector, Services.EMPTY, compilerArguments);
+        final CustomMessageCollector messageCollector = new CustomMessageCollector();
+        final ExitCode exitCode = k2JVMCompiler.execImpl(messageCollector, Services.EMPTY, compilerArguments);
 
         if (exitCode.getCode() != 0) {
             throw new CompilationException("Compilation failed", messageCollector.report());
         }
     }
 
+    private void deleteDirectory(final String path) throws CompilationException {
+        try {
+            fileOperations.deleteDir(Path.of(path));
+        } catch (final IOException e) {
+            throw new CompilationException(e);
+        }
+    }
+
     @NotNull
-    private Set<CompiledClass> getCompiledClasses(String outputDir) throws CompilationException {
-        try (Stream<Path> pathStram = Files.list(Paths.get(outputDir))) {
-            return pathStram.filter(path -> !path.toFile().isDirectory())
+    private String getDirectoryPath(final String executionId, final String sources) {
+        return baseDir.toString() + "/" + executionId + "/" + sources;
+    }
+
+    @NotNull
+    private Set<CompiledClass> getCompiledClasses(final String outputDirectoryPath) throws CompilationException {
+        try (Stream<Path> pathStream = Files.list(Paths.get(outputDirectoryPath))) {
+            return pathStream.filter(path -> !path.toFile().isDirectory())
                     .map(this::read)
                     .collect(Collectors.toSet());
         } catch (IOException | UncheckedIOException e) {
@@ -100,12 +100,12 @@ public class KotlinCompiler implements Compiler {
         }
     }
 
-    private CompiledClass read(Path path) {
+    private CompiledClass read(final Path path) {
         try (BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(path.toFile()));) {
-            byte[] bytes = bufferedInputStream.readAllBytes();
-            String[] fileName = path.getFileName().toString().split("\\.");
-            return new CompiledClass(fileName[0], bytes);
-        } catch (IOException e) {
+            final byte[] bytes = bufferedInputStream.readAllBytes();
+            final String[] fileNameParts = path.getFileName().toString().split("\\.");
+            return new CompiledClass(fileNameParts[0], bytes);
+        } catch (final IOException e) {
             throw new UncheckedIOException(e);
         }
     }
@@ -113,14 +113,14 @@ public class KotlinCompiler implements Compiler {
     private void saveToFile(final String code, final String directory) throws CompilationException {
         try {
             Files.writeString(Paths.get(directory + "/source.kt"), code);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new CompilationException(e);
         }
     }
 
     private void createDirectory(final String path) throws CompilationException {
-        boolean newFile = new File(path).mkdirs();
-        if (!newFile) {
+        final boolean wasCreated = new File(path).mkdirs();
+        if (!wasCreated) {
             throw new CompilationException(String.format("Could not create directory %s", path));
         }
     }

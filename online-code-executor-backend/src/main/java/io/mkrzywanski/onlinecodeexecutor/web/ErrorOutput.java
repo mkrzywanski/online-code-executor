@@ -4,7 +4,7 @@ public class ErrorOutput {
     private final int httpStatus;
     private final String message;
 
-    public ErrorOutput(int httpStatus, String message) {
+    public ErrorOutput(final int httpStatus, final String message) {
         this.httpStatus = httpStatus;
         this.message = message;
     }

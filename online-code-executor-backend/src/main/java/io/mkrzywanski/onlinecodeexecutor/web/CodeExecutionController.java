@@ -19,13 +19,13 @@ public class CodeExecutionController {
     private final CodeRunner codeRunner;
 
     @Inject
-    public CodeExecutionController(CodeRunner codeRunner) {
+    public CodeExecutionController(final CodeRunner codeRunner) {
         this.codeRunner = codeRunner;
     }
 
     @Post(uri = Endpoints.EXECUTE, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     public HttpResponse<ExecutionResult> execute(@Body final Code code) throws CompilationException, ExecutionException {
-        ExecutionResult executionResult = codeRunner.run(code);
+        final ExecutionResult executionResult = codeRunner.run(code);
         return HttpResponse.ok(executionResult);
     }
 }

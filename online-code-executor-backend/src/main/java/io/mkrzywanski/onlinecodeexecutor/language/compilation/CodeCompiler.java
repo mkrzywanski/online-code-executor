@@ -12,13 +12,13 @@ public class CodeCompiler {
     private final Compilers compilers;
 
     @Inject
-    public CodeCompiler(Compilers compilers) {
+    public CodeCompiler(final Compilers compilers) {
         this.compilers = compilers;
     }
 
     public CompiledClasses compile(final Code code) throws CompilationException {
-        Compiler compiler = compilers.forLanguage(code.getLanguage());
-        Set<CompiledClass> compile = compiler.compile(code.getValue());
+        final Compiler compiler = compilers.forLanguage(code.getLanguage());
+        final Set<CompiledClass> compile = compiler.compile(code.getValue());
         return new CompiledClasses(compile);
     }
 }
