@@ -1,0 +1,16 @@
+micronaut:
+  application:
+    name: onlineCompiler
+
+
+groovy:
+  compiler:
+    directory: groovy
+
+kotlin:
+  compiler:
+    directory: kotlin
+
+zip:
+  directory:
+    zip

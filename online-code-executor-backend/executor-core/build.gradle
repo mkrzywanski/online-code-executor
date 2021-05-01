@@ -1,0 +1,20 @@
+version = '0.0.1'
+
+ext {
+    kotlinVersion = '1.4.30'
+}
+dependencies {
+    implementation group: 'org.codehaus.groovy', name: 'groovy-all', version: '3.0.7'
+    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-compiler-embeddable', version: kotlinVersion
+    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: kotlinVersion
+    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-script-runtime', version: kotlinVersion
+    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-reflect', version: kotlinVersion
+    implementation 'com.github.javaparser:javaparser-symbol-solver-core:3.18.0'
+
+    testImplementation platform("org.spockframework:spock-bom:2.0-M4-groovy-3.0")
+    testImplementation "org.spockframework:spock-core"
+    // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+
+
+}

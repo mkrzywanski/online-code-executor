@@ -1,1 +1,5 @@
 rootProject.name="online-code-executor"
+
+include "executor-core"
+include "executor-app"
+include "executor-domain"
