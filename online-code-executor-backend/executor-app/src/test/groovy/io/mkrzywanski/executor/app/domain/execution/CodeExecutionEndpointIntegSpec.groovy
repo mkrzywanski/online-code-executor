@@ -55,4 +55,23 @@ class CodeExecutionEndpointIntegSpec extends Specification {
             result == 'Hello Groovy' + System.lineSeparator()
         }
     }
+
+    def 'should compile and execute kotlin code'() {
+        given:
+        def codeString = """fun main(args: Array<String>) {
+                        println(\"Hello, world!\")
+                      }
+                   """
+        def code = new ExecuteCodeRequest(Language.KOTLIN, codeString)
+
+        when:
+        HttpResponse<ExecuteCodeResponse> response = client.toBlocking()
+                .exchange(HttpRequest.create(HttpMethod.POST, Endpoints.EXECUTE).body(code), ExecuteCodeResponse.class)
+
+        then:
+        response.code() == 200
+        with(response.body()) {
+            result == 'Hello, world!' + System.lineSeparator()
+        }
+    }
 }

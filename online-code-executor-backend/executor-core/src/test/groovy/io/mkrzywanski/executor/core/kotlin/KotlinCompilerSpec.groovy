@@ -1,5 +1,6 @@
 package io.mkrzywanski.executor.core.kotlin
 
+import io.mkrzywanski.executor.core.compilation.CompilationException
 import io.mkrzywanski.executor.core.compilation.KotlinCompiler
 import io.mkrzywanski.executor.core.compilation.FileOperations
 import spock.lang.Shared
@@ -23,7 +24,10 @@ class KotlinCompilerSpec extends Specification {
 
     def "compile kotlin"() {
         given:
-        String code = "fun main(args: Array<String>) {println(\"Hello, world!\")}"
+        def code = """fun main(args: Array<String>) {
+                        println(\"Hello, world!\")
+                      }
+                   """
 
         when:
         def compiledClasses = kotlinCompiler.compile(code)
@@ -38,7 +42,7 @@ class KotlinCompilerSpec extends Specification {
         String code = "fun main {println(\"Hello, world!\")}"
 
         when:
-        def compile = kotlinCompiler.compile(code)
+        kotlinCompiler.compile(code)
 
         then:
         def exception = thrown(CompilationException)

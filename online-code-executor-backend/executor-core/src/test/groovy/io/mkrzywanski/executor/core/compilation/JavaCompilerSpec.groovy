@@ -1,6 +1,5 @@
-package io.mkrzywanski.executor.core.compiler
+package io.mkrzywanski.executor.core.compilation
 
-import io.mkrzywanski.executor.core.compilation.JavaCompiler
 import spock.lang.Shared
 import spock.lang.Specification
 

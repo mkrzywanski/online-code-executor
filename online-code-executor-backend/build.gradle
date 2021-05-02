@@ -6,7 +6,6 @@ allprojects {
 }
 
 subprojects {
-    apply plugin : "java"
     apply plugin : "groovy"
     apply plugin : "checkstyle"
 
@@ -18,9 +17,15 @@ subprojects {
     dependencies {
         implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
         runtimeOnly("ch.qos.logback:logback-classic")
-        // https://mvnrepository.com/artifact/net.lingala.zip4j/zip4j
         implementation group: 'net.lingala.zip4j', name: 'zip4j', version: '2.7.0'
 
+    }
+
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
     }
 }
 

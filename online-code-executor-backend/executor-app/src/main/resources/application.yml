@@ -10,7 +10,3 @@ groovy:
 kotlin:
   compiler:
     directory: kotlin
-
-zip:
-  directory:
-    zip

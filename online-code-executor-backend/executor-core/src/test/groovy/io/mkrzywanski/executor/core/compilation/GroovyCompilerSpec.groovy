@@ -1,5 +1,6 @@
-package io.mkrzywanski.executor.core.compiler
+package io.mkrzywanski.executor.core.compilation
 
+import io.mkrzywanski.executor.core.compilation.CompilationException
 import io.mkrzywanski.executor.core.compilation.GroovyCompiler
 import io.mkrzywanski.executor.core.compilation.FileOperations
 import spock.lang.Shared

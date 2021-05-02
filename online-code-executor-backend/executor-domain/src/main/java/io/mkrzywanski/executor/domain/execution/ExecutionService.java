@@ -4,6 +4,7 @@ import io.mkrzywanski.executor.core.compilation.CompiledClass;
 import io.mkrzywanski.executor.core.execution.ExecutionException;
 import io.mkrzywanski.executor.core.execution.Executor;
 import io.mkrzywanski.executor.core.execution.Executors;
+import io.mkrzywanski.executor.core.loading.ClassLoadingException;
 import io.mkrzywanski.executor.core.loading.ClassLoadingService;
 import io.mkrzywanski.executor.core.loading.LoadedClasses;
 import io.mkrzywanski.executor.domain.compilation.model.CompiledClasses;
@@ -28,8 +29,8 @@ public final class ExecutionService {
     public ExecutionResult execute(final CompiledClasses compiledClasses) throws ExecutionFailedException {
         try {
             return doExecute(compiledClasses);
-        } catch (final ExecutionException e) {
-            throw new ExecutionFailedException();
+        } catch (final ExecutionException | ClassLoadingException e) {
+            throw new ExecutionFailedException(e.getMessage());
         }
     }
 
@@ -41,11 +42,10 @@ public final class ExecutionService {
     }
 
     private io.mkrzywanski.executor.core.compilation.CompiledClasses convertToCore(final CompiledClasses compiledClasses) {
-        final Set<CompiledClass> collect = compiledClasses.asSet()
+        final Set<CompiledClass> resultCompiledClasses = compiledClasses.asSet()
                 .stream()
                 .map(compiledClass -> new CompiledClass(compiledClass.getName(), compiledClass.getBytes()))
                 .collect(Collectors.toSet());
-        final io.mkrzywanski.executor.core.compilation.CompiledClasses compiledClasses1 = new io.mkrzywanski.executor.core.compilation.CompiledClasses(collect);
-        return compiledClasses1;
+        return new io.mkrzywanski.executor.core.compilation.CompiledClasses(resultCompiledClasses);
     }
 }

@@ -33,7 +33,13 @@ class CodeCompilationEndpointTest extends Specification {
 
     def "should return compressed files"() {
         given:
-        def codeString = "public class Test { public static void main(String[] args) {System.out.println(\"hello\");}}"
+        def codeString = """
+                            public class Test {
+                                public static void main(String[] args) {
+                                    System.out.println(\"hello\");
+                                }
+                            }
+        """
         def code = new CompileAndDownloadRequest(Language.JAVA, codeString)
         def request = HttpRequest.create(HttpMethod.POST, Endpoints.COMPILE_AND_COMPRESS)
 
