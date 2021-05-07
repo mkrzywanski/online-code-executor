@@ -25,7 +25,11 @@ class CodeExecutionEndpointIntegSpec extends Specification {
 
     def 'should compile and execute Java code'() {
         given:
-        def codeString = "public class Test { public static void main(String[] args) {System.out.println(\"hello\");}}"
+        def codeString = """public class Test {
+                                public static void main(String[] args) {
+                                    System.out.println(\"hello\");
+                                }
+                            }"""
         def code = new ExecuteCodeRequest(Language.JAVA, codeString)
 
         when:

@@ -19,7 +19,7 @@ public class Code {
         return language;
     }
 
-    public String getValue() {
+    public String asString() {
         return value;
     }
 }

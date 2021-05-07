@@ -28,8 +28,9 @@ public class ApplicationBeanFactory {
     @Bean
     public Compilers compilers() {
         return DefaultCompilers.CompilerBuilder.newInstance()
-                .withGroovyPath(groovyBaseDir)
-                .withKotlinPath(kotlinBaseDir)
+                .withGroovyEnabled(groovyBaseDir)
+                .withKotlinEnabled(kotlinBaseDir)
+                .withJavaEnabled()
                 .build();
     }
 

@@ -4,7 +4,7 @@ import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.server.exceptions.ExceptionHandler;
-import io.mkrzywanski.executor.domain.common.LanguageNotSupportedException;
+import io.mkrzywanski.executor.domain.common.exception.LanguageNotSupportedException;
 
 import javax.inject.Singleton;
 

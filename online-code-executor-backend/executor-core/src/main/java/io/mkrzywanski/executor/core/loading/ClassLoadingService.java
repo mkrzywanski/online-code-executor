@@ -10,26 +10,27 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class ClassLoadingService {
+public final class ClassLoadingService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ClassLoadingService.class);
 
     public LoadedClasses load(final CompiledClasses compiledClass) {
 
-        final Map<String, byte[]> classesBytes = compiledClass.getCompiledClasses()
+        final Map<String, byte[]> classesBytes = compiledClass.asSet()
                 .stream()
                 .collect(Collectors.toMap(CompiledClass::getName, CompiledClass::getBytes));
 
         final ClassLoader classLoader = new ByteArrayClassLoader(classesBytes);
 
-        final Set<Class<?>> classes = loadClasses(classesBytes, classLoader);
+        final Set<String> classNames = classesBytes.keySet();
+        final Set<Class<?>> classes = loadClasses(classNames, classLoader);
 
         return new LoadedClasses(classes);
     }
 
     @NotNull
-    private Set<Class<?>> loadClasses(final Map<String, byte[]> classBytes, final ClassLoader classLoader) {
-        return classBytes.keySet()
+    private Set<Class<?>> loadClasses(final Set<String> classNames, final ClassLoader classLoader) {
+        return classNames
                 .stream()
                 .map(className -> loadInternal(classLoader, className))
                 .collect(Collectors.toSet());

@@ -19,6 +19,6 @@ class DiagnosticsCollectingListener implements DiagnosticListener<JavaFileObject
     String generateReport() {
         return this.diagnostics.stream()
                 .map(Object::toString)
-                .collect(Collectors.joining("\n"));
+                .collect(Collectors.joining(System.lineSeparator()));
     }
 }

@@ -10,7 +10,7 @@ public class CompiledClasses {
         this.compiledClasses = compiledClasses;
     }
 
-    public Set<CompiledClass> getCompiledClasses() {
+    public Set<CompiledClass> asSet() {
         return compiledClasses;
     }
 }
