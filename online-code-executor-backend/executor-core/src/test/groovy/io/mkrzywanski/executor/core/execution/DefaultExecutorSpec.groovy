@@ -1,8 +1,8 @@
 package io.mkrzywanski.executor.core.execution
 
-import io.mkrzywanski.executor.core.data.HelloWorld
 import io.mkrzywanski.executor.core.interceptor.ThreadOutputInterceptor
 import io.mkrzywanski.executor.core.loading.LoadedClasses
+import io.mkrzywanski.executor.test.data.HelloWorld
 import spock.lang.Specification
 
 class DefaultExecutorSpec extends Specification {

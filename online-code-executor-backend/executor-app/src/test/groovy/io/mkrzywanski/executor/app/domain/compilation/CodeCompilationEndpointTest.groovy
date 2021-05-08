@@ -21,7 +21,6 @@ import javax.inject.Inject
 import static org.hamcrest.MatcherAssert.assertThat
 import static org.hamcrest.Matchers.contains
 import static org.hamcrest.Matchers.hasSize
-import static org.hamcrest.Matchers.equalTo
 
 @MicronautTest
 class CodeCompilationEndpointTest extends Specification {

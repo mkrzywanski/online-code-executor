@@ -14,7 +14,6 @@ public class DefaultThreadInterceptor implements ThreadInterceptor {
         threadOutputInterceptor = ThreadOutputInterceptors.forPrintStream(printStream);
     }
 
-
     @Override
     public String getOutputForCurrentThread() {
         return threadOutputInterceptor.getOutputForCurrentThread();

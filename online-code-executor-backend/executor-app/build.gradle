@@ -26,6 +26,7 @@ dependencies {
     implementation group: 'net.bytebuddy', name: 'byte-buddy', version: '1.10.20'
     runtimeOnly("ch.qos.logback:logback-classic")
     implementation project(":executor-domain")
+    testImplementation project(":executor-test-commons")
 }
 
 

@@ -1,3 +1,4 @@
+package io.mkrzywanski.executor.app.domain.execution
 //package io.mkrzywanski.executor.app
 //
 //import io.mkrzywanski.executor.app.domain.execution.domain.PrintStreamProxy
@@ -6,7 +7,7 @@
 //import spock.lang.Shared
 //import spock.lang.Specification
 //
-//class PrintStreamProxySpec extends Specification {
+//class io.mkrzywanski.executor.app.domain.execution.PrintStreamProxySpec extends Specification {
 //
 //    @Shared
 //    String lineSeparator = System.lineSeparator()

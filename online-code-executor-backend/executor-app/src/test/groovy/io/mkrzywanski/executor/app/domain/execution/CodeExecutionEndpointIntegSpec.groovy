@@ -10,6 +10,7 @@ import io.mkrzywanski.executor.app.domain.execution.api.ExecuteCodeRequest
 import io.mkrzywanski.executor.app.domain.execution.api.ExecuteCodeResponse
 import io.mkrzywanski.executor.app.infra.web.Endpoints
 import io.mkrzywanski.executor.domain.common.Language
+import io.mkrzywanski.executor.test.data.CodeData
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -25,11 +26,7 @@ class CodeExecutionEndpointIntegSpec extends Specification {
 
     def 'should compile and execute Java code'() {
         given:
-        def codeString = """public class Test {
-                                public static void main(String[] args) {
-                                    System.out.println(\"hello\");
-                                }
-                            }"""
+        def codeString = CodeData.HELLO_WORLD_JAVA
         def code = new ExecuteCodeRequest(Language.JAVA, codeString)
 
         when:
@@ -46,7 +43,7 @@ class CodeExecutionEndpointIntegSpec extends Specification {
 
     def 'should compile and execute Groovy code'() {
         given:
-        def codeString = "class Test {static void main(String[] args) {println \"Hello Groovy\"}}"
+        def codeString = CodeData.HELLO_WORLD_GROOVY
         def code = new ExecuteCodeRequest(Language.GROOVY, codeString)
 
         when:
@@ -62,10 +59,7 @@ class CodeExecutionEndpointIntegSpec extends Specification {
 
     def 'should compile and execute kotlin code'() {
         given:
-        def codeString = """fun main(args: Array<String>) {
-                        println(\"Hello, world!\")
-                      }
-                   """
+        def codeString = CodeData.KOTLIN_HELLO_WORLD
         def code = new ExecuteCodeRequest(Language.KOTLIN, codeString)
 
         when:
