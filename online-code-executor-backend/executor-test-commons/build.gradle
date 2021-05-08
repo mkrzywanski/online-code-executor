@@ -1,0 +1,10 @@
+
+
+dependencies {
+    implementation group: 'org.codehaus.groovy', name: 'groovy-all', version: '3.0.7'
+    // https://mvnrepository.com/artifact/org.hamcrest/hamcrest-library
+    implementation group: 'org.hamcrest', name: 'hamcrest-library', version: '2.2'
+    // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+
+}

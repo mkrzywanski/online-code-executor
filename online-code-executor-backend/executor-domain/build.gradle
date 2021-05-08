@@ -1,0 +1,8 @@
+
+version = "0.1"
+group = "io.mkrzywanski"
+
+dependencies {
+    implementation project(":executor-core")
+    testImplementation project(":executor-test-commons")
+}
