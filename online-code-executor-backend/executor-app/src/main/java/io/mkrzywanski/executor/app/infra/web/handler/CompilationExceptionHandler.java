@@ -11,11 +11,11 @@ import javax.inject.Singleton;
 
 @Produces
 @Singleton
-public class CompilationExceptionHandler implements ExceptionHandler<CompilationFailedException, HttpResponse<ErrorOutput>> {
+public class CompilationExceptionHandler implements ExceptionHandler<CompilationFailedException, HttpResponse<ErrorResponse>> {
 
     @Override
-    public HttpResponse<ErrorOutput> handle(final HttpRequest request, final CompilationFailedException exception) {
-        final ErrorOutput errorOutput = new ErrorOutput(HttpStatus.BAD_REQUEST.getCode(), exception.getReport());
-        return HttpResponse.badRequest(errorOutput);
+    public HttpResponse<ErrorResponse> handle(final HttpRequest request, final CompilationFailedException exception) {
+        final ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.getCode(), exception.getReport());
+        return HttpResponse.badRequest(errorResponse);
     }
 }

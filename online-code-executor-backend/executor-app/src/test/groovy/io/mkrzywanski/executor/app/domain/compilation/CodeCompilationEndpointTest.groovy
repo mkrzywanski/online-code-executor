@@ -4,13 +4,13 @@ import io.micronaut.http.HttpMethod
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.client.RxHttpClient
 import io.micronaut.http.client.annotation.Client
-import io.micronaut.http.server.types.files.StreamedFile
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.mkrzywanski.executor.app.domain.compilation.api.CompileAndDownloadRequest
 import io.mkrzywanski.executor.app.infra.web.Endpoints
 import io.mkrzywanski.executor.app.utils.PotentialClass
 import io.mkrzywanski.executor.app.utils.TestClassLoader
 import io.mkrzywanski.executor.domain.common.Language
+import io.mkrzywanski.executor.test.data.CodeData
 import net.lingala.zip4j.io.inputstream.ZipInputStream
 import net.lingala.zip4j.model.LocalFileHeader
 import spock.lang.Shared
@@ -32,13 +32,7 @@ class CodeCompilationEndpointTest extends Specification {
 
     def "should return compressed files"() {
         given:
-        def codeString = """
-                            public class Test {
-                                public static void main(String[] args) {
-                                    System.out.println(\"hello\");
-                                }
-                            }
-        """
+        def codeString = CodeData.Java.HELLO_WORLD
         def code = new CompileAndDownloadRequest(Language.JAVA, codeString)
         def request = HttpRequest.create(HttpMethod.POST, Endpoints.COMPILE_AND_COMPRESS)
 
@@ -58,15 +52,7 @@ class CodeCompilationEndpointTest extends Specification {
 
     def "should return compressed files when there are more than 1 class compile"() {
         given:
-        def codeString =
-                """public class Test {
-                        public static void main(String[] args) {
-                            System.out.println(\"HelloWorld\");
-                        }
-                        public class NestedClass {
-                        
-                        }
-                }"""
+        def codeString = CodeData.Java.NESTED_CLASS
         def code = new CompileAndDownloadRequest(Language.JAVA, codeString)
         def request = HttpRequest.create(HttpMethod.POST, Endpoints.COMPILE_AND_COMPRESS)
 

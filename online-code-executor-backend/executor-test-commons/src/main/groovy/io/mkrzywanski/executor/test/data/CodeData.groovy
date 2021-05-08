@@ -1,23 +1,43 @@
 package io.mkrzywanski.executor.test.data
 
 final class CodeData {
-    public static final String HELLO_WORLD_JAVA =
-            """public class Test {
+
+    static class Java {
+        public static final String HELLO_WORLD =
+                """public class Test {
                     public static void main(String[] args) {
                         System.out.println(\"hello\");
                     }
                }
             """
-    public static final String HELLO_WORLD_GROOVY =
-            """class Test {
+        public static final String NESTED_CLASS =
+                """public class Test {
+                        public static void main(String[] args) {
+                            System.out.println(\"HelloWorld\");
+                        }
+                        public class NestedClass {
+                        
+                        }
+                }"""
+    }
+
+    static class Groovy {
+
+        public static final String HELLO_WORLD =
+                """class Test {
                     static void main(String[] args) {
                         println \"Hello Groovy\"
                     }
                }
             """
-    public static final String KOTLIN_HELLO_WORLD =
-            """fun main(args: Array<String>) {
+    }
+
+    static class Kotlin {
+        public static final String HELLO_WORLD =
+                """fun main(args: Array<String>) {
                     println(\"Hello, world!\")
                }
             """
+
+    }
 }

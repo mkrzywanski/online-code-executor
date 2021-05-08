@@ -26,7 +26,7 @@ class CodeExecutionEndpointIntegSpec extends Specification {
 
     def 'should compile and execute Java code'() {
         given:
-        def codeString = CodeData.HELLO_WORLD_JAVA
+        def codeString = CodeData.Java.HELLO_WORLD
         def code = new ExecuteCodeRequest(Language.JAVA, codeString)
 
         when:
@@ -43,7 +43,7 @@ class CodeExecutionEndpointIntegSpec extends Specification {
 
     def 'should compile and execute Groovy code'() {
         given:
-        def codeString = CodeData.HELLO_WORLD_GROOVY
+        def codeString = CodeData.Groovy.HELLO_WORLD
         def code = new ExecuteCodeRequest(Language.GROOVY, codeString)
 
         when:
@@ -59,7 +59,7 @@ class CodeExecutionEndpointIntegSpec extends Specification {
 
     def 'should compile and execute kotlin code'() {
         given:
-        def codeString = CodeData.KOTLIN_HELLO_WORLD
+        def codeString = CodeData.Kotlin.HELLO_WORLD
         def code = new ExecuteCodeRequest(Language.KOTLIN, codeString)
 
         when:
