@@ -10,6 +10,7 @@ import io.mkrzywanski.executor.domain.compilation.Compilers;
 import io.mkrzywanski.executor.domain.compilation.DefaultCompilers;
 import io.mkrzywanski.executor.domain.execution.ExecutionService;
 import io.mkrzywanski.executor.domain.execution.interceptor.DefaultThreadInterceptor;
+import io.mkrzywanski.executor.domain.execution.interceptor.ThreadInterceptor;
 
 import javax.inject.Singleton;
 import java.io.PrintStream;
@@ -36,7 +37,7 @@ public class ApplicationBeanFactory {
 
     @Bean
     @Singleton
-    public PrintStream printStreamProxy(final DefaultThreadInterceptor defaultThreadInterceptor) {
+    public PrintStream printStreamProxy(final ThreadInterceptor defaultThreadInterceptor) {
         return PrintStreamProxy.create(defaultThreadInterceptor, System.out);
     }
 
@@ -54,7 +55,7 @@ public class ApplicationBeanFactory {
 
     @Bean
     @Singleton
-    public DefaultThreadInterceptor defaultThreadInterceptor() {
+    public ThreadInterceptor defaultThreadInterceptor() {
         return new DefaultThreadInterceptor(System.out);
     }
 

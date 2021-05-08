@@ -23,8 +23,8 @@ final class CodeCompilerFacade {
     private final CompiledCodeCompressionService codeCompressionService;
 
     @Inject
-    CodeCompilerFacade(final CompilationService compilers, final CompiledCodeCompressionService codeCompressionService) {
-        this.compilers = compilers;
+    CodeCompilerFacade(final CompilationService compilationService, final CompiledCodeCompressionService codeCompressionService) {
+        this.compilers = compilationService;
         this.codeCompressionService = codeCompressionService;
     }
 

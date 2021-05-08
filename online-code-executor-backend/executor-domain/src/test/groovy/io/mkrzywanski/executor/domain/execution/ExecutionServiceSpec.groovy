@@ -29,6 +29,6 @@ class ExecutionServiceSpec extends Specification {
         def execute = executionService.execute(compiledClasses)
 
         then:
-        execute.output == 'HelloWorld' + "\n"
+        execute.output == 'HelloWorld\n'
     }
 }
