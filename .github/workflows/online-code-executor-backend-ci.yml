@@ -2,6 +2,7 @@ name: online-code-executor-backend-ci
 on: [push]
 jobs:
   build:
+    environment: DEFAULT
     runs-on: ubuntu-latest
     steps:
     - name: Checkout project
@@ -15,4 +16,10 @@ jobs:
       working-directory: ./online-code-executor-backend
     - name: Build with Gradle
       run: ./gradlew build
+      working-directory: ./online-code-executor-backend
+    - name: Generate coverage report
+      run: ./gradlew codeCoverageReport
+      working-directory: ./online-code-executor-backend
+    - name: Upload coverage report
+      run: bash <(curl -s https://codecov.io/bash)
       working-directory: ./online-code-executor-backend

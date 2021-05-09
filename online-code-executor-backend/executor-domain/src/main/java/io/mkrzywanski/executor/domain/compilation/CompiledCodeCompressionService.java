@@ -29,15 +29,15 @@ public final class CompiledCodeCompressionService {
         int readLen;
         final ByteArrayOutputStream boas = new ByteArrayOutputStream();
         try (ZipOutputStream zos = new ZipOutputStream(boas)) {
-            for (CompiledClass fileToAdd : compiledClasses.asSet()) {
+            for (CompiledClass compiledClass : compiledClasses.asSet()) {
                 if (zipParameters.getCompressionMethod() == CompressionMethod.STORE) {
-                    zipParameters.setEntrySize(fileToAdd.getBytes().length);
+                    zipParameters.setEntrySize(compiledClass.getBytes().length);
                 }
 
-                zipParameters.setFileNameInZip(fileToAdd.getName());
+                zipParameters.setFileNameInZip(compiledClass.getName());
                 zos.putNextEntry(zipParameters);
 
-                try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(fileToAdd.getBytes())) {
+                try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(compiledClass.getBytes())) {
                     while ((readLen = byteArrayInputStream.read(buff)) != -1) {
                         zos.write(buff, 0, readLen);
                     }
