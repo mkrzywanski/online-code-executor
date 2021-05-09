@@ -16,15 +16,6 @@ final class FileOperations {
         return new FileOperations();
     }
 
-    void createFile(final Path path) throws IOException {
-        final File compilationDir = new File(path.toUri());
-        final boolean mkdirs = compilationDir.mkdirs();
-
-        if (!mkdirs) {
-            throw new IOException("Could not crete directory");
-        }
-    }
-
     void deleteDir(final Path path) throws IOException {
         try (Stream<Path> walk = Files.walk(path)) {
             walk.sorted(Comparator.reverseOrder())

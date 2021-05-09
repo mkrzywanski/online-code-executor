@@ -9,7 +9,4 @@ public class ExecutionException extends Exception {
         super(message, cause);
     }
 
-    static ExecutionException noMainMethod() {
-        return new ExecutionException("No main method found");
-    }
 }

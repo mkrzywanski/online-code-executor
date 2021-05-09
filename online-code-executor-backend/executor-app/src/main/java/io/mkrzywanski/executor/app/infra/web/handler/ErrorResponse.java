@@ -1,8 +1,12 @@
 package io.mkrzywanski.executor.app.infra.web.handler;
 
-public class ErrorResponse {
-    private final int httpStatus;
-    private final String message;
+public final class ErrorResponse {
+
+    private int httpStatus;
+    private String message;
+
+    private ErrorResponse() {
+    }
 
     public ErrorResponse(final int httpStatus, final String message) {
         this.httpStatus = httpStatus;

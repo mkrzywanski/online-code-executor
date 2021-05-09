@@ -9,7 +9,7 @@ import io.mkrzywanski.executor.domain.compilation.CompiledCodeCompressionService
 import io.mkrzywanski.executor.domain.compilation.Compilers;
 import io.mkrzywanski.executor.domain.compilation.DefaultCompilers;
 import io.mkrzywanski.executor.domain.execution.ExecutionService;
-import io.mkrzywanski.executor.domain.execution.interceptor.DefaultThreadInterceptor;
+import io.mkrzywanski.executor.domain.execution.interceptor.ThreadInterceptors;
 import io.mkrzywanski.executor.domain.execution.interceptor.ThreadInterceptor;
 
 import javax.inject.Singleton;
@@ -49,14 +49,14 @@ public class ApplicationBeanFactory {
 
     @Bean
     @Singleton
-    public ExecutionService executionService(final DefaultThreadInterceptor interceptor) {
+    public ExecutionService executionService(final ThreadInterceptor interceptor) {
         return new ExecutionService(interceptor);
     }
 
     @Bean
     @Singleton
     public ThreadInterceptor defaultThreadInterceptor() {
-        return new DefaultThreadInterceptor(System.out);
+        return ThreadInterceptors.defaultInterceptor(System.out);
     }
 
     @Bean

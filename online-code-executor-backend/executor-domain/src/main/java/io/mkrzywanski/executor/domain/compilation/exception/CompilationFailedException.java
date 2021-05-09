@@ -1,11 +1,10 @@
 package io.mkrzywanski.executor.domain.compilation.exception;
 
-import io.mkrzywanski.executor.domain.common.exception.BusinessException;
-
-public class CompilationFailedException extends BusinessException {
+public class CompilationFailedException extends Exception {
     private final String report;
 
     public CompilationFailedException(final String report) {
+        super("Compilation failed");
         this.report = report;
     }
 
