@@ -50,10 +50,6 @@ task codeCoverageReport(type: JacocoReport) {
         csv.enabled false
     }
 }
-//
-//codeCoverageReport.dependsOn {
-//    tasks.build
-//}
 
 tasks.findByName("build").finalizedBy("codeCoverageReport")
 
