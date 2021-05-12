@@ -15,7 +15,7 @@ public class CompilationExceptionHandler implements ExceptionHandler<Compilation
 
     @Override
     public HttpResponse<ErrorResponse> handle(final HttpRequest request, final CompilationFailedException exception) {
-        final ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.getCode(), exception.getReport());
+        final ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.getCode(), exception.getMessage());
         return HttpResponse.badRequest(errorResponse);
     }
 }

@@ -6,11 +6,11 @@ import io.mkrzywanski.executor.core.interceptor.ThreadOutputInterceptors;
 import java.io.PrintStream;
 import java.lang.reflect.Method;
 
-public class DefaultThreadInterceptor implements ThreadInterceptor {
+class DefaultThreadInterceptor implements ThreadInterceptor {
 
     private final ThreadOutputInterceptor threadOutputInterceptor;
 
-    public DefaultThreadInterceptor(final PrintStream printStream) {
+    DefaultThreadInterceptor(final PrintStream printStream) {
         threadOutputInterceptor = ThreadOutputInterceptors.forPrintStream(printStream);
     }
 

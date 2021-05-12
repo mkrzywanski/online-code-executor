@@ -15,4 +15,16 @@ class CustomMessageCollectorTest extends Specification {
         then:
         collector.hasErrors()
     }
+
+    def "should report nothing when clear is called"() {
+        given:
+        CustomMessageCollector collector = new CustomMessageCollector()
+
+        when:
+        collector.report(CompilerMessageSeverity.ERROR, "message", CompilerMessageLocation.create(""))
+        collector.clear()
+        
+        then:
+        collector.report() == ''
+    }
 }

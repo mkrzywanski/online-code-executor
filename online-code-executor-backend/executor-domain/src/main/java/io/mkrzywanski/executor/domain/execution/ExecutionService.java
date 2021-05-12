@@ -22,7 +22,7 @@ public final class ExecutionService {
     private final Executor executor;
 
     public ExecutionService(final ThreadInterceptor threadInterceptor) {
-        this.classLoadingService = new ClassLoadingService();
+        this.classLoadingService = ClassLoadingService.newInstance();
         this.executor = Executors.defaultExecutor(new ThreadOutputInterceptorAdapter(threadInterceptor));
     }
 

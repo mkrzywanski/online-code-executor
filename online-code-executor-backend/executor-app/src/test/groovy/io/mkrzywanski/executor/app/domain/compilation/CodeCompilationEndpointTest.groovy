@@ -1,12 +1,19 @@
 package io.mkrzywanski.executor.app.domain.compilation
 
+import io.micronaut.core.type.Argument
 import io.micronaut.http.HttpMethod
 import io.micronaut.http.HttpRequest
+import io.micronaut.http.HttpStatus
+import io.micronaut.http.client.HttpClientConfiguration
 import io.micronaut.http.client.RxHttpClient
 import io.micronaut.http.client.annotation.Client
+import io.micronaut.http.client.exceptions.HttpClientResponseException
+import io.micronaut.http.client.netty.DefaultHttpClient
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
+import io.micronaut.test.support.TestPropertyProvider
 import io.mkrzywanski.executor.app.domain.compilation.api.CompileAndDownloadRequest
 import io.mkrzywanski.executor.app.infra.web.Endpoints
+import io.mkrzywanski.executor.app.infra.web.handler.ErrorResponse
 import io.mkrzywanski.executor.app.utils.PotentialClass
 import io.mkrzywanski.executor.app.utils.TestClassLoader
 import io.mkrzywanski.executor.domain.common.Language
@@ -20,15 +27,21 @@ import javax.inject.Inject
 
 import static org.hamcrest.MatcherAssert.assertThat
 import static org.hamcrest.Matchers.contains
+import static org.hamcrest.Matchers.empty
+import static org.hamcrest.Matchers.emptyOrNullString
+import static org.hamcrest.Matchers.emptyString
 import static org.hamcrest.Matchers.hasSize
+import static org.hamcrest.Matchers.is
+import static org.hamcrest.Matchers.isEmptyOrNullString
+import static org.hamcrest.Matchers.not
 
 @MicronautTest
 class CodeCompilationEndpointTest extends Specification {
 
     @Shared
     @Inject
-    @Client("/")
-    RxHttpClient httpClient
+    @Client(value = "/", errorType = ErrorResponse)
+    DefaultHttpClient httpClient
 
     def "should return compressed files"() {
         given:
@@ -68,6 +81,24 @@ class CodeCompilationEndpointTest extends Specification {
         classesCanBeLoaded(potentialClasses)
         noExceptionThrown()
 
+    }
+
+    def "should fail when code cannot be compiled"() {
+        given:
+        def codeString = "wrong code"
+        def code = new CompileAndDownloadRequest(Language.JAVA, codeString)
+        def request = HttpRequest.create(HttpMethod.POST, Endpoints.COMPILE_AND_COMPRESS)
+
+        when:
+        httpClient.toBlocking()
+                .exchange(request.body(code), Argument.of(byte[]), Argument.of(ErrorResponse))
+
+        then:
+        def exception = thrown(HttpClientResponseException)
+        exception.status == HttpStatus.BAD_REQUEST
+        def errorResponse = exception.response.getBody(ErrorResponse).get()
+        errorResponse.httpStatus == 400
+        assertThat(errorResponse.getMessage(), is(not(emptyOrNullString())))
     }
 
     private static void classesCanBeLoaded(List<PotentialClass> potentialClasses) {
