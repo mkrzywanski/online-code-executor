@@ -1,0 +1,22 @@
+.CodeWindow {
+
+}
+
+.container_editor_area {
+    tab-size: 4ch;
+    max-height: 400px;
+    overflow: auto;
+    margin: 1.67em 0;
+  }
+  
+  .container__editor {
+    font-size: 12px;
+    font-variant-ligatures: common-ligatures;
+    background-color: #fafafa;
+    border-radius: 3px;
+    border-color: black;
+  }
+  
+  .container__editor textarea {
+    outline: 0;
+  }

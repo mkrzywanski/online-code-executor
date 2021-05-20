@@ -1,7 +1,9 @@
 micronaut:
   application:
     name: onlineCompiler
-
+  server:
+    cors:
+      enabled: true
 
 groovy:
   compiler:
