@@ -1,6 +1,7 @@
 plugins {
     id("com.github.johnrengelman.shadow") version "6.1.0"
     id("io.micronaut.application") version "1.3.3"
+    id 'com.google.cloud.tools.jib' version '3.0.0'
 }
 
 version = "0.1"
@@ -32,4 +33,13 @@ dependencies {
 
 application {
     mainClass.set("io.mkrzywanski.executor.app.Application")
+}
+
+jib {
+    from {
+        image = 'openjdk:14-alpine'
+    }
+    to {
+        image = "${project.name}"
+    }
 }
