@@ -1,6 +1,7 @@
 export default class ExecutorApiClient {
     constructor() {
-      this.api_url = "http://localhost:8080";
+      this.api_url = process.env.REACT_APP_EXECUTOR_SERVICE_URL;
+      console.log(this.api_url)
       this.headers = {
         "content-type": 'application/json'
       }
@@ -8,6 +9,7 @@ export default class ExecutorApiClient {
   
     execute = (executeRequest) => {
       const body = JSON.stringify(executeRequest);
+      console.log(this.api_url)
         return fetch(this.api_url + "/v1/execute", {
             method: 'POST',
             headers: this.headers,

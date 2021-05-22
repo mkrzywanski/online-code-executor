@@ -12,15 +12,16 @@ import "prismjs/themes/prism.css"; //Example style, you can use another
 const CodeWindow = ({ code, onCodeChange, language }) => {
   return (
     <div>
-      <label htmlFor="code-text-area">Example textarea</label>
+      <label htmlFor="code-text-area">Source code</label>
       <div class="h-25">
-        <div className={styles.container_editor_area}>
+        <div className={styles.dupa}>
           <Editor
             value={code}
+            rows="5"
             onValueChange={onCodeChange}
             highlight={(code) => Prism.highlight(code, Prism.languages[language], language)}
             padding={10}
-            textareaClassName={styles.container__editor}
+            textareaClassName={styles.codeTextArea}
           />
         </div>
       </div>

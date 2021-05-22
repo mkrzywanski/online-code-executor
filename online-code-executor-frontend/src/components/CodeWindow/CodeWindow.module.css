@@ -2,6 +2,17 @@
 
 }
 
+.dupa {
+  max-height: 400px;
+  min-height: 4em;
+  overflow: auto;
+  border: 1px solid #000000;
+}
+
+.dupa > * {
+  min-height: 400px;
+}
+
 .container_editor_area {
     tab-size: 4ch;
     max-height: 400px;
@@ -19,4 +30,9 @@
   
   .container__editor textarea {
     outline: 0;
+  }
+
+  .codeTextArea {
+    height: 4em;
+    width: 50em;
   }
