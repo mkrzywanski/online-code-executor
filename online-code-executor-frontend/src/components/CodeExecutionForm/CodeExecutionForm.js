@@ -1,4 +1,3 @@
-import styles from './CodeExecutionForm.module.css';
 import CodeWindow from '../CodeWindow/CodeWindow';
 import React, { useState } from 'react';
 import ExecutorApiClient from '../http/code-executor-client'
@@ -24,7 +23,7 @@ const CodeExecutionForm = () => {
     }
     client.execute(request)
       .then(res => {
-        if (res.status == 200) {
+        if (res.status === 200) {
           return res.json()
         } else {
           return res.json().then(error => Promise.reject(error))
@@ -44,7 +43,7 @@ const CodeExecutionForm = () => {
     }
     await client.download(request)
       .then(async response => {
-        if (response.status == 200) {
+        if (response.status === 200) {
           return response.blob()
         } else {
           return response.json().then(error => Promise.reject(error));
@@ -85,13 +84,16 @@ const CodeExecutionForm = () => {
                 </div>
               </div>
               <div class="row">
-                <button id="execute-button" data-testid="execute-button" type="submit" className="btn btn-primary mb-2 mr-1" onClick={execute}>
+              <div class="mt-2">
+                <button id="execute-button" data-testid="execute-button" type="submit" className="btn btn-primary mr-1" onClick={execute}>
                   Execute
                 </button>
-                <button id="download-button" data-testid="download-button" className="btn btn-primary mb-2" onClick={download}>
+                &nbsp;
+                <button id="download-button" data-testid="download-button" className="btn btn-primary ml-1" onClick={download}>
                   Download
                 </button>
               </div>
+            </div>
             </div>
           </div>
         </form>
