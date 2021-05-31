@@ -2,14 +2,14 @@
 
 }
 
-.dupa {
+.editor {
   max-height: 400px;
   min-height: 4em;
   overflow: auto;
   border: 1px solid #000000;
 }
 
-.dupa > * {
+.editor > * {
   min-height: 400px;
 }
 

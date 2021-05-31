@@ -5,7 +5,8 @@ import CodeWindow from './CodeWindow';
 
 describe('<CodeWindow />', () => {
   test('it should mount', () => {
-    render(<CodeWindow />);
+
+    render(<CodeWindow code="test" onCodeChange={()=> {}} language="kotlin"/>);
     
     const codeWindow = screen.getByTestId('CodeWindow');
 

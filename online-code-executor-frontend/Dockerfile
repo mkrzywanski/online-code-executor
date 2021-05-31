@@ -2,7 +2,6 @@ FROM node:15.4.0-alpine3.10 as build
 
 WORKDIR /app
 
-ENV NODE_ENV=production
 COPY package.json ./
 COPY package-lock.json ./
 
