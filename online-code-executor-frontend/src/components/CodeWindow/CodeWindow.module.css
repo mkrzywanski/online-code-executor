@@ -1,0 +1,38 @@
+.CodeWindow {
+
+}
+
+.editor {
+  max-height: 400px;
+  min-height: 4em;
+  overflow: auto;
+  border: 1px solid #000000;
+}
+
+.editor > * {
+  min-height: 400px;
+}
+
+.container_editor_area {
+    tab-size: 4ch;
+    max-height: 400px;
+    overflow: auto;
+    margin: 1.67em 0;
+  }
+  
+  .container__editor {
+    font-size: 12px;
+    font-variant-ligatures: common-ligatures;
+    background-color: #fafafa;
+    border-radius: 3px;
+    border-color: black;
+  }
+  
+  .container__editor textarea {
+    outline: 0;
+  }
+
+  .codeTextArea {
+    height: 4em;
+    width: 50em;
+  }

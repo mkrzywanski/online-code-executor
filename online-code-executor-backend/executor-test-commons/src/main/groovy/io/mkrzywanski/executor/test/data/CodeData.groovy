@@ -9,7 +9,7 @@ final class CodeData {
                         public static void main(String[] args) {
                             System.out.println(\"hello\");
                         }
-                }
+                    }
                 """
         public static final String EMPTY_CLASS =
                 """

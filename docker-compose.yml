@@ -1,0 +1,11 @@
+version: "3.7"
+services:
+  executor-server:
+    image: executor-app
+    ports:
+      - 8080:8080
+  executor-client:
+    image: executor-client
+    build: ./online-code-executor-frontend
+    ports:
+      - 80:80
