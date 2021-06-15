@@ -1,4 +1,4 @@
-package io.mkrzywanski.executor.app.config;
+package io.mkrzywanski.executor.app.infra.config;
 
 import io.micronaut.context.event.StartupEvent;
 import io.micronaut.runtime.event.annotation.EventListener;

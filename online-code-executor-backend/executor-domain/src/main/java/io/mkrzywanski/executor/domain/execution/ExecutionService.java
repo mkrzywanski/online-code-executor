@@ -9,8 +9,6 @@ import io.mkrzywanski.executor.core.loading.ClassLoadingService;
 import io.mkrzywanski.executor.core.loading.LoadedClasses;
 import io.mkrzywanski.executor.domain.compilation.model.CompiledClasses;
 import io.mkrzywanski.executor.domain.execution.exception.ExecutionFailedException;
-import io.mkrzywanski.executor.domain.execution.interceptor.ThreadInterceptor;
-import io.mkrzywanski.executor.domain.execution.interceptor.ThreadOutputInterceptorAdapter;
 import io.mkrzywanski.executor.domain.execution.model.ExecutionResult;
 
 import java.util.Set;

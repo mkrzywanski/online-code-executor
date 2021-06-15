@@ -1,4 +1,4 @@
-package io.mkrzywanski.executor.domain.execution.interceptor;
+package io.mkrzywanski.executor.domain.execution;
 
 import java.lang.reflect.InvocationHandler;
 

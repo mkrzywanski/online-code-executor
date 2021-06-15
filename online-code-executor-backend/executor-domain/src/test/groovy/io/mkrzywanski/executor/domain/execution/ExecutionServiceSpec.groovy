@@ -2,7 +2,6 @@ package io.mkrzywanski.executor.domain.execution
 
 import io.mkrzywanski.executor.domain.compilation.model.CompiledClass
 import io.mkrzywanski.executor.domain.compilation.model.CompiledClasses
-import io.mkrzywanski.executor.domain.execution.interceptor.ThreadInterceptor
 import io.mkrzywanski.executor.test.data.CompiledClassesObjectMother
 import spock.lang.Specification
 

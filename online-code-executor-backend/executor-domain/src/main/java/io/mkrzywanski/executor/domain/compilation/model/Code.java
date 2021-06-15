@@ -4,11 +4,8 @@ import io.mkrzywanski.executor.domain.common.Language;
 
 public class Code {
 
-    private Language language;
-    private String value;
-
-    private Code() {
-    }
+    private final Language language;
+    private final String value;
 
     public Code(final Language language, final String value) {
         this.language = language;

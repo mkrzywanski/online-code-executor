@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.emptyString
 import static org.hamcrest.Matchers.isEmptyString
 import static org.hamcrest.Matchers.not
 
-class DiagnosticsCollectingListenerTest extends Specification {
+class DiagnosticsCollectingListenerSpec extends Specification {
 
     def diag = new DiagnosticsCollectingListener()
 

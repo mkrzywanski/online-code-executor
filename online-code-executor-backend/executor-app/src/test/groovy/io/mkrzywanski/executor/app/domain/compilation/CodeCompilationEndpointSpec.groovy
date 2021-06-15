@@ -36,7 +36,7 @@ import static org.hamcrest.Matchers.isEmptyOrNullString
 import static org.hamcrest.Matchers.not
 
 @MicronautTest
-class CodeCompilationEndpointTest extends Specification {
+class CodeCompilationEndpointSpec extends Specification {
 
     @Shared
     @Inject
@@ -87,11 +87,11 @@ class CodeCompilationEndpointTest extends Specification {
         given:
         def codeString = "wrong code"
         def code = new CompileAndDownloadRequest(Language.JAVA, codeString)
-        def request = HttpRequest.create(HttpMethod.POST, Endpoints.COMPILE_AND_COMPRESS)
+        def request = HttpRequest.create(HttpMethod.POST, Endpoints.COMPILE_AND_COMPRESS).body(code)
 
         when:
         httpClient.toBlocking()
-                .exchange(request.body(code), Argument.of(byte[]), Argument.of(ErrorResponse))
+                .exchange(request, Argument.of(byte[]), Argument.of(ErrorResponse))
 
         then:
         def exception = thrown(HttpClientResponseException)

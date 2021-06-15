@@ -17,12 +17,12 @@ import java.util.stream.Stream;
 
 class KotlinCompiler implements Compiler {
 
-    private final K2JVMCompiler k2JVMCompiler = new K2JVMCompiler();
-
+    private final K2JVMCompiler k2JVMCompiler;
     private final Path baseDir;
     private final FileOperations fileOperations;
 
     KotlinCompiler(final Path baseDir, final FileOperations fileOperations) {
+        this.k2JVMCompiler =  new K2JVMCompiler();
         this.baseDir = baseDir;
         this.fileOperations = fileOperations;
     }

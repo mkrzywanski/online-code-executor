@@ -1,6 +1,7 @@
 package io.mkrzywanski.executor.app.utils;
 
 public class PotentialClass {
+
     private final String name;
     private final byte[] bytes;
 

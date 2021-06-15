@@ -28,8 +28,8 @@ final class CodeExecutionFacade {
     ExecuteCodeResponse executeCode(final ExecuteCodeRequest request) throws CompilationFailedException, ExecutionFailedException {
         final Code code = new Code(request.getLanguage(), request.getCode());
         final CompilationResult compilationResult = compile(code);
-        final ExecutionResult execute = executionService.execute(compilationResult.getCompiledClasses());
-        return new ExecuteCodeResponse(execute.getOutput());
+        final ExecutionResult executionResult = executionService.execute(compilationResult.getCompiledClasses());
+        return new ExecuteCodeResponse(executionResult.getOutput());
     }
 
     private CompilationResult compile(final Code code) throws CompilationFailedException {

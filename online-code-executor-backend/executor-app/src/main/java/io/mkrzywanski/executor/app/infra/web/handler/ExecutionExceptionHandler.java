@@ -10,7 +10,7 @@ import io.mkrzywanski.executor.domain.execution.exception.ExecutionFailedExcepti
 import javax.inject.Singleton;
 
 @Singleton
-public class ExecutionExceptionHandler implements ExceptionHandler<ExecutionFailedException, HttpResponse<ErrorResponse>> {
+class ExecutionExceptionHandler implements ExceptionHandler<ExecutionFailedException, HttpResponse<ErrorResponse>> {
     @Override
     public HttpResponse<ErrorResponse> handle(final HttpRequest request, final ExecutionFailedException exception) {
         final ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.getCode(), exception.getMessage());

@@ -1,6 +1,6 @@
 package io.mkrzywanski.executor.app.domain.execution;
 
-import io.mkrzywanski.executor.app.config.ApplicationBeanFactory;
+import io.mkrzywanski.executor.app.infra.config.ApplicationBeanFactory;
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.implementation.InvocationHandlerAdapter;
 import net.bytebuddy.matcher.ElementMatchers;

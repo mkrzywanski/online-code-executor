@@ -1,4 +1,4 @@
-package io.mkrzywanski.executor.app.config;
+package io.mkrzywanski.executor.app.infra.config;
 
 import io.micronaut.context.annotation.Bean;
 import io.micronaut.context.annotation.Factory;
@@ -9,8 +9,8 @@ import io.mkrzywanski.executor.domain.compilation.CompiledCodeCompressionService
 import io.mkrzywanski.executor.domain.compilation.Compilers;
 import io.mkrzywanski.executor.domain.compilation.DefaultCompilers;
 import io.mkrzywanski.executor.domain.execution.ExecutionService;
-import io.mkrzywanski.executor.domain.execution.interceptor.ThreadInterceptors;
-import io.mkrzywanski.executor.domain.execution.interceptor.ThreadInterceptor;
+import io.mkrzywanski.executor.domain.execution.ThreadInterceptors;
+import io.mkrzywanski.executor.domain.execution.ThreadInterceptor;
 
 import javax.inject.Singleton;
 import java.io.PrintStream;
