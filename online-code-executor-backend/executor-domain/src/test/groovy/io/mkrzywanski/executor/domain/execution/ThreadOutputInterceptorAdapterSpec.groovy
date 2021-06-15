@@ -1,10 +1,10 @@
-package io.mkrzywanski.executor.domain.execution.interceptor
+package io.mkrzywanski.executor.domain.execution
 
+import io.mkrzywanski.executor.domain.execution.ThreadInterceptor
+import io.mkrzywanski.executor.domain.execution.ThreadOutputInterceptorAdapter
 import spock.lang.Specification
 
-import java.lang.reflect.Method
-
-class ThreadOutputInterceptorAdapterTest extends Specification {
+class ThreadOutputInterceptorAdapterSpec extends Specification {
 
     def 'should forward call of getOutputForCurrentThread method'() {
         given:
@@ -13,10 +13,10 @@ class ThreadOutputInterceptorAdapterTest extends Specification {
         def adapter = new ThreadOutputInterceptorAdapter(interceptorStub)
 
         when:
-        def thread = adapter.getOutputForCurrentThread()
+        def output = adapter.getOutputForCurrentThread()
 
         then:
-        thread == "test"
+        output == "test"
     }
 
     def "should call proxied removeForCurrentThread method"() {

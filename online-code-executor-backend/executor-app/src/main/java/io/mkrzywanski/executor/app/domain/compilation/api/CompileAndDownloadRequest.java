@@ -4,12 +4,10 @@ import io.mkrzywanski.executor.domain.common.Language;
 
 public final class CompileAndDownloadRequest {
 
-    private final Language language;
-    private final String code;
+    private Language language;
+    private String code;
 
     private CompileAndDownloadRequest() {
-        this.language = null;
-        this.code = null;
     }
 
     public CompileAndDownloadRequest(final Language language, final String code) {

@@ -15,6 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 class GroovyCompiler implements Compiler {
@@ -45,7 +46,7 @@ class GroovyCompiler implements Compiler {
 
         final List<GroovyClass> classes = unit.getClasses();
         final Set<CompiledClass> compiledClasses = classes.stream()
-                .map(groovyClass -> new CompiledClass(groovyClass.getName(), groovyClass.getBytes()))
+                .map(toCompiledClass())
                 .collect(Collectors.toSet());
 
         deleteDirectory(compilationDirectoryPath);
@@ -60,6 +61,10 @@ class GroovyCompiler implements Compiler {
             final String errorReport = getErrorReport(unit);
             throw new CompilationException("Compilation error", errorReport);
         }
+    }
+
+    private Function<GroovyClass, CompiledClass> toCompiledClass() {
+        return groovyClass -> new CompiledClass(groovyClass.getName(), groovyClass.getBytes());
     }
 
     private String getErrorReport(final CompilationUnit unit) {

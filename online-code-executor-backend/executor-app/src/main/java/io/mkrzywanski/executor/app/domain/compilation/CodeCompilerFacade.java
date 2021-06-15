@@ -32,8 +32,8 @@ final class CodeCompilerFacade {
         final Code code = new Code(request.getLanguage(), request.getCode());
         final CompilationResult compilationResult = compilers.compile(code);
         final CompiledClasses compiledClasses = compilationResult.getCompiledClasses();
-        final InputStream compress = codeCompressionService.compress(compiledClasses);
-        return new StreamedFile(compress, MediaType.MULTIPART_FORM_DATA_TYPE);
+        final InputStream compressedData = codeCompressionService.compress(compiledClasses);
+        return new StreamedFile(compressedData, MediaType.MULTIPART_FORM_DATA_TYPE);
 
     }
 }

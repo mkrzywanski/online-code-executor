@@ -11,7 +11,7 @@ import javax.inject.Singleton;
 
 @Produces
 @Singleton
-public class CompilationExceptionHandler implements ExceptionHandler<CompilationFailedException, HttpResponse<ErrorResponse>> {
+class CompilationExceptionHandler implements ExceptionHandler<CompilationFailedException, HttpResponse<ErrorResponse>> {
 
     @Override
     public HttpResponse<ErrorResponse> handle(final HttpRequest request, final CompilationFailedException exception) {

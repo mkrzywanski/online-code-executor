@@ -8,7 +8,7 @@ import org.codehaus.groovy.control.CompilationFailedException
 import spock.lang.Shared
 import spock.lang.Specification
 
-class ClassLoadingServiceTest extends Specification {
+class ClassLoadingServiceSpec extends Specification {
 
     @Shared
     def classLoadingService = ClassLoadingService.newInstance()

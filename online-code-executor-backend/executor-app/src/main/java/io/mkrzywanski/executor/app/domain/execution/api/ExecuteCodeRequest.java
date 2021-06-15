@@ -4,17 +4,15 @@ import io.mkrzywanski.executor.domain.common.Language;
 
 public final class ExecuteCodeRequest {
 
-    private final Language language;
-    private final String code;
+    private Language language;
+    private String code;
 
     public ExecuteCodeRequest(final Language language, final String code) {
         this.language = language;
         this.code = code;
     }
 
-    ExecuteCodeRequest() {
-        this.language = null;
-        this.code = null;
+    private ExecuteCodeRequest() {
     }
 
     public Language getLanguage() {

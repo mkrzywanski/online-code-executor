@@ -9,7 +9,7 @@ import io.mkrzywanski.executor.domain.common.exception.LanguageNotSupportedExcep
 import javax.inject.Singleton;
 
 @Singleton
-public class LanguageNotSupportedExceptionHandler implements ExceptionHandler<LanguageNotSupportedException, HttpResponse<ErrorResponse>> {
+class LanguageNotSupportedExceptionHandler implements ExceptionHandler<LanguageNotSupportedException, HttpResponse<ErrorResponse>> {
     @Override
     public HttpResponse<ErrorResponse> handle(final HttpRequest request, final LanguageNotSupportedException exception) {
         final ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.getCode(), exception.getMessage());

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CustomMessageCollector implements MessageCollector {
+class CustomMessageCollector implements MessageCollector {
 
     private final List<Message> messages = new ArrayList<>();
 
@@ -32,7 +32,7 @@ public class CustomMessageCollector implements MessageCollector {
         messages.add(new Message(compilerMessageSeverity, message, compilerMessageSourceLocation));
     }
 
-    public String report() {
+    String report() {
         return messages.stream()
                 .map(Message::toString)
                 .collect(Collectors.joining(System.lineSeparator()));

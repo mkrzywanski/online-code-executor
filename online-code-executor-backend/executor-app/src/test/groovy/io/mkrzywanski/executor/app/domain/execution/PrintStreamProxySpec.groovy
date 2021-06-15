@@ -1,8 +1,6 @@
 package io.mkrzywanski.executor.app.domain.execution
 
-import io.mkrzywanski.executor.domain.execution.interceptor.DefaultThreadInterceptor
-import io.mkrzywanski.executor.domain.execution.interceptor.ThreadInterceptor
-import spock.lang.Shared
+import io.mkrzywanski.executor.domain.execution.DefaultThreadInterceptor
 import spock.lang.Specification
 
 class PrintStreamProxySpec extends Specification {
